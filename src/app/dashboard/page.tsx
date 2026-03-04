@@ -190,7 +190,7 @@ export default function DashboardPage() {
       {/* Today's workout */}
       <Card>
         <CardHeader>
-          <CardTitle><Zap className="w-4 h-4 inline mr-1 text-vitality-500" />Today's Plan</CardTitle>
+          <CardTitle><Zap className="w-4 h-4 inline mr-1 text-vitality-500" />Today&apos;s Plan</CardTitle>
           <Link href="/log" className="text-xs text-vitality-500 hover:text-vitality-400">View all →</Link>
         </CardHeader>
         {activeSession ? (

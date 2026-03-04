@@ -60,7 +60,7 @@ export default function LogPage() {
       {/* Today's plan */}
       {todayTemplates.length > 0 && (
         <Card className="mb-4">
-          <CardHeader><CardTitle>Today's Plan</CardTitle></CardHeader>
+          <CardHeader><CardTitle>Today&apos;s Plan</CardTitle></CardHeader>
           <div className="space-y-2">
             {todayTemplates.map(t => (
               <div key={t.id} className="flex items-center justify-between bg-slate-900 rounded-lg p-3">

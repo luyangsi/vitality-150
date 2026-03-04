@@ -1,0 +1,90 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    background-color: #0a0f1e;
+    color-scheme: dark;
+  }
+
+  body {
+    background-color: #0a0f1e;
+    color: #e2e8f0;
+    font-family: 'Inter', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #0f172a;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #334155;
+    border-radius: 3px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #00d4aa;
+  }
+
+  /* Remove number input arrows */
+  input[type='number']::-webkit-inner-spin-button,
+  input[type='number']::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}
+
+@layer components {
+  .card {
+    @apply bg-slate-800 border border-slate-700 rounded-xl p-4;
+  }
+
+  .card-glow {
+    @apply bg-slate-800 border border-vitality-500/20 rounded-xl p-4 shadow-vitality;
+  }
+
+  .btn-primary {
+    @apply bg-vitality-500 hover:bg-vitality-400 text-slate-950 font-semibold px-4 py-2 rounded-lg transition-all duration-200 active:scale-95;
+  }
+
+  .btn-secondary {
+    @apply bg-slate-700 hover:bg-slate-600 text-slate-100 font-medium px-4 py-2 rounded-lg transition-all duration-200 active:scale-95;
+  }
+
+  .btn-ghost {
+    @apply hover:bg-slate-700/50 text-slate-400 hover:text-slate-100 font-medium px-3 py-2 rounded-lg transition-all duration-200;
+  }
+
+  .input-base {
+    @apply bg-slate-900 border border-slate-700 text-slate-100 rounded-lg px-3 py-2 text-sm
+           focus:outline-none focus:border-vitality-500 focus:ring-1 focus:ring-vitality-500/30
+           placeholder-slate-500 transition-colors duration-200 w-full;
+  }
+
+  .label {
+    @apply text-xs font-medium text-slate-400 uppercase tracking-wider;
+  }
+
+  .stat-number {
+    @apply font-mono text-2xl font-semibold text-vitality-500;
+  }
+
+  .pillar-zone2 { @apply text-cyan-400; }
+  .pillar-vo2max { @apply text-blue-400; }
+  .pillar-hrv { @apply text-purple-400; }
+  .pillar-strength { @apply text-amber-400; }
+  .pillar-mobility { @apply text-green-400; }
+  .pillar-sleep { @apply text-indigo-400; }
+}

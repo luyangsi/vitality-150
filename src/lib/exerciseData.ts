@@ -1,0 +1,78 @@
+import type { Exercise } from '@/types/exercise';
+
+export const PREDEFINED_EXERCISES: Exercise[] = [
+  // ─── STRENGTH: PUSH ────────────────────────────────
+  { id: 'ex_bench_press',      name: 'Barbell Bench Press',       category: 'strength', primaryMuscles: ['chest'],     secondaryMuscles: ['triceps','shoulders'], equipment: 'barbell',    isCustom: false, createdAt: '2024-01-01T00:00:00Z' },
+  { id: 'ex_incline_bench',    name: 'Incline Barbell Press',     category: 'strength', primaryMuscles: ['chest'],     secondaryMuscles: ['shoulders','triceps'], equipment: 'barbell',    isCustom: false, createdAt: '2024-01-01T00:00:00Z' },
+  { id: 'ex_db_bench',         name: 'Dumbbell Bench Press',      category: 'strength', primaryMuscles: ['chest'],     secondaryMuscles: ['triceps','shoulders'], equipment: 'dumbbell',   isCustom: false, createdAt: '2024-01-01T00:00:00Z' },
+  { id: 'ex_incline_db',       name: 'Incline Dumbbell Press',    category: 'strength', primaryMuscles: ['chest'],     secondaryMuscles: ['shoulders'],          equipment: 'dumbbell',   isCustom: false, createdAt: '2024-01-01T00:00:00Z' },
+  { id: 'ex_cable_fly',        name: 'Cable Chest Fly',           category: 'strength', primaryMuscles: ['chest'],     secondaryMuscles: [],                     equipment: 'cable',      isCustom: false, createdAt: '2024-01-01T00:00:00Z' },
+  { id: 'ex_ohp',              name: 'Overhead Press (Barbell)',  category: 'strength', primaryMuscles: ['shoulders'], secondaryMuscles: ['triceps'],             equipment: 'barbell',    isCustom: false, createdAt: '2024-01-01T00:00:00Z' },
+  { id: 'ex_db_ohp',           name: 'Dumbbell Shoulder Press',  category: 'strength', primaryMuscles: ['shoulders'], secondaryMuscles: ['triceps'],             equipment: 'dumbbell',   isCustom: false, createdAt: '2024-01-01T00:00:00Z' },
+  { id: 'ex_lateral_raise',    name: 'Lateral Raise',            category: 'strength', primaryMuscles: ['shoulders'], secondaryMuscles: [],                     equipment: 'dumbbell',   isCustom: false, createdAt: '2024-01-01T00:00:00Z' },
+  { id: 'ex_tricep_pushdown',  name: 'Tricep Pushdown',          category: 'strength', primaryMuscles: ['triceps'],   secondaryMuscles: [],                     equipment: 'cable',      isCustom: false, createdAt: '2024-01-01T00:00:00Z' },
+  { id: 'ex_skull_crusher',    name: 'Skull Crushers',           category: 'strength', primaryMuscles: ['triceps'],   secondaryMuscles: [],                     equipment: 'barbell',    isCustom: false, createdAt: '2024-01-01T00:00:00Z' },
+  { id: 'ex_dip',              name: 'Dip',                      category: 'strength', primaryMuscles: ['triceps'],   secondaryMuscles: ['chest','shoulders'],   equipment: 'bodyweight', isCustom: false, createdAt: '2024-01-01T00:00:00Z' },
+  { id: 'ex_pushup',           name: 'Push-Up',                  category: 'strength', primaryMuscles: ['chest'],     secondaryMuscles: ['triceps','shoulders'], equipment: 'bodyweight', isCustom: false, createdAt: '2024-01-01T00:00:00Z' },
+
+  // ─── STRENGTH: PULL ────────────────────────────────
+  { id: 'ex_deadlift',         name: 'Conventional Deadlift',    category: 'strength', primaryMuscles: ['back'],      secondaryMuscles: ['hamstrings','glutes','forearms'], equipment: 'barbell',    isCustom: false, createdAt: '2024-01-01T00:00:00Z' },
+  { id: 'ex_rdl',              name: 'Romanian Deadlift',        category: 'strength', primaryMuscles: ['hamstrings'],secondaryMuscles: ['glutes','back'],       equipment: 'barbell',    isCustom: false, createdAt: '2024-01-01T00:00:00Z' },
+  { id: 'ex_pullup',           name: 'Pull-Up',                  category: 'strength', primaryMuscles: ['back'],      secondaryMuscles: ['biceps'],              equipment: 'bodyweight', isCustom: false, createdAt: '2024-01-01T00:00:00Z' },
+  { id: 'ex_chinup',           name: 'Chin-Up',                  category: 'strength', primaryMuscles: ['biceps'],    secondaryMuscles: ['back'],                equipment: 'bodyweight', isCustom: false, createdAt: '2024-01-01T00:00:00Z' },
+  { id: 'ex_bent_row',         name: 'Barbell Bent-Over Row',    category: 'strength', primaryMuscles: ['back'],      secondaryMuscles: ['biceps'],              equipment: 'barbell',    isCustom: false, createdAt: '2024-01-01T00:00:00Z' },
+  { id: 'ex_db_row',           name: 'Dumbbell Row',             category: 'strength', primaryMuscles: ['back'],      secondaryMuscles: ['biceps'],              equipment: 'dumbbell',   isCustom: false, createdAt: '2024-01-01T00:00:00Z' },
+  { id: 'ex_cable_row',        name: 'Seated Cable Row',         category: 'strength', primaryMuscles: ['back'],      secondaryMuscles: ['biceps'],              equipment: 'cable',      isCustom: false, createdAt: '2024-01-01T00:00:00Z' },
+  { id: 'ex_lat_pulldown',     name: 'Lat Pulldown',             category: 'strength', primaryMuscles: ['back'],      secondaryMuscles: ['biceps'],              equipment: 'cable',      isCustom: false, createdAt: '2024-01-01T00:00:00Z' },
+  { id: 'ex_face_pull',        name: 'Face Pull',                category: 'strength', primaryMuscles: ['shoulders'], secondaryMuscles: ['back'],                equipment: 'cable',      isCustom: false, createdAt: '2024-01-01T00:00:00Z' },
+  { id: 'ex_curl',             name: 'Barbell Curl',             category: 'strength', primaryMuscles: ['biceps'],    secondaryMuscles: [],                     equipment: 'barbell',    isCustom: false, createdAt: '2024-01-01T00:00:00Z' },
+  { id: 'ex_db_curl',          name: 'Dumbbell Curl',            category: 'strength', primaryMuscles: ['biceps'],    secondaryMuscles: [],                     equipment: 'dumbbell',   isCustom: false, createdAt: '2024-01-01T00:00:00Z' },
+  { id: 'ex_hammer_curl',      name: 'Hammer Curl',              category: 'strength', primaryMuscles: ['biceps'],    secondaryMuscles: ['forearms'],            equipment: 'dumbbell',   isCustom: false, createdAt: '2024-01-01T00:00:00Z' },
+  { id: 'ex_shrug',            name: 'Barbell Shrug',            category: 'strength', primaryMuscles: ['back'],      secondaryMuscles: ['forearms'],            equipment: 'barbell',    isCustom: false, createdAt: '2024-01-01T00:00:00Z' },
+
+  // ─── STRENGTH: LEGS ────────────────────────────────
+  { id: 'ex_squat',            name: 'Back Squat',               category: 'strength', primaryMuscles: ['quads'],     secondaryMuscles: ['glutes','hamstrings'], equipment: 'barbell',    isCustom: false, createdAt: '2024-01-01T00:00:00Z' },
+  { id: 'ex_front_squat',      name: 'Front Squat',              category: 'strength', primaryMuscles: ['quads'],     secondaryMuscles: ['core'],               equipment: 'barbell',    isCustom: false, createdAt: '2024-01-01T00:00:00Z' },
+  { id: 'ex_goblet_squat',     name: 'Goblet Squat',             category: 'strength', primaryMuscles: ['quads'],     secondaryMuscles: ['glutes'],             equipment: 'kettlebell', isCustom: false, createdAt: '2024-01-01T00:00:00Z' },
+  { id: 'ex_leg_press',        name: 'Leg Press',                category: 'strength', primaryMuscles: ['quads'],     secondaryMuscles: ['glutes','hamstrings'], equipment: 'machine',    isCustom: false, createdAt: '2024-01-01T00:00:00Z' },
+  { id: 'ex_lunge',            name: 'Barbell Lunge',            category: 'strength', primaryMuscles: ['quads'],     secondaryMuscles: ['glutes','hamstrings'], equipment: 'barbell',    isCustom: false, createdAt: '2024-01-01T00:00:00Z' },
+  { id: 'ex_db_lunge',         name: 'Dumbbell Lunge',           category: 'strength', primaryMuscles: ['quads'],     secondaryMuscles: ['glutes'],             equipment: 'dumbbell',   isCustom: false, createdAt: '2024-01-01T00:00:00Z' },
+  { id: 'ex_bulgarian',        name: 'Bulgarian Split Squat',    category: 'strength', primaryMuscles: ['quads'],     secondaryMuscles: ['glutes'],             equipment: 'dumbbell',   isCustom: false, createdAt: '2024-01-01T00:00:00Z' },
+  { id: 'ex_hip_thrust',       name: 'Barbell Hip Thrust',       category: 'strength', primaryMuscles: ['glutes'],    secondaryMuscles: ['hamstrings'],         equipment: 'barbell',    isCustom: false, createdAt: '2024-01-01T00:00:00Z' },
+  { id: 'ex_leg_curl',         name: 'Leg Curl',                 category: 'strength', primaryMuscles: ['hamstrings'],secondaryMuscles: [],                     equipment: 'machine',    isCustom: false, createdAt: '2024-01-01T00:00:00Z' },
+  { id: 'ex_leg_extension',    name: 'Leg Extension',            category: 'strength', primaryMuscles: ['quads'],     secondaryMuscles: [],                     equipment: 'machine',    isCustom: false, createdAt: '2024-01-01T00:00:00Z' },
+  { id: 'ex_calf_raise',       name: 'Standing Calf Raise',      category: 'strength', primaryMuscles: ['calves'],    secondaryMuscles: [],                     equipment: 'machine',    isCustom: false, createdAt: '2024-01-01T00:00:00Z' },
+
+  // ─── STRENGTH: CORE ────────────────────────────────
+  { id: 'ex_plank',            name: 'Plank',                    category: 'isometric', primaryMuscles: ['core'],    secondaryMuscles: [],                     equipment: 'bodyweight', isCustom: false, createdAt: '2024-01-01T00:00:00Z' },
+  { id: 'ex_ab_wheel',         name: 'Ab Wheel Rollout',         category: 'strength',  primaryMuscles: ['core'],    secondaryMuscles: [],                     equipment: 'none',       isCustom: false, createdAt: '2024-01-01T00:00:00Z' },
+  { id: 'ex_pallof_press',     name: 'Pallof Press',             category: 'strength',  primaryMuscles: ['core'],    secondaryMuscles: [],                     equipment: 'cable',      isCustom: false, createdAt: '2024-01-01T00:00:00Z' },
+  { id: 'ex_hanging_leg',      name: 'Hanging Leg Raise',        category: 'strength',  primaryMuscles: ['core'],    secondaryMuscles: [],                     equipment: 'bodyweight', isCustom: false, createdAt: '2024-01-01T00:00:00Z' },
+  { id: 'ex_dead_bug',         name: 'Dead Bug',                 category: 'strength',  primaryMuscles: ['core'],    secondaryMuscles: [],                     equipment: 'bodyweight', isCustom: false, createdAt: '2024-01-01T00:00:00Z' },
+  { id: 'ex_farmers_carry',    name: "Farmer's Carry",           category: 'strength',  primaryMuscles: ['core'],    secondaryMuscles: ['forearms','back'],     equipment: 'dumbbell',   isCustom: false, createdAt: '2024-01-01T00:00:00Z' },
+
+  // ─── CARDIO ────────────────────────────────────────
+  { id: 'ex_zone2_run',        name: 'Zone 2 Run',               category: 'cardio',   primaryMuscles: ['full_body'],secondaryMuscles: [],                     equipment: 'none',       isCustom: false, createdAt: '2024-01-01T00:00:00Z', instructions: 'Heart rate 60-70% of max. Conversational pace. 30-60 min minimum.' },
+  { id: 'ex_zone2_bike',       name: 'Zone 2 Cycling',           category: 'cardio',   primaryMuscles: ['quads'],   secondaryMuscles: ['hamstrings','glutes'], equipment: 'none',       isCustom: false, createdAt: '2024-01-01T00:00:00Z', instructions: 'Maintain 60-70% max HR. Stationary or road bike.' },
+  { id: 'ex_zone2_row',        name: 'Zone 2 Rowing',            category: 'cardio',   primaryMuscles: ['full_body'],secondaryMuscles: [],                     equipment: 'none',       isCustom: false, createdAt: '2024-01-01T00:00:00Z' },
+  { id: 'ex_hiit_run',         name: 'HIIT Sprint Intervals',    category: 'cardio',   primaryMuscles: ['full_body'],secondaryMuscles: [],                     equipment: 'none',       isCustom: false, createdAt: '2024-01-01T00:00:00Z', instructions: '30s sprint / 90s walk x8 rounds. ~20 min total.' },
+  { id: 'ex_hiit_bike',        name: 'HIIT Cycling Intervals',   category: 'cardio',   primaryMuscles: ['quads'],   secondaryMuscles: [],                     equipment: 'none',       isCustom: false, createdAt: '2024-01-01T00:00:00Z' },
+  { id: 'ex_swim',             name: 'Swimming',                 category: 'cardio',   primaryMuscles: ['full_body'],secondaryMuscles: [],                     equipment: 'none',       isCustom: false, createdAt: '2024-01-01T00:00:00Z' },
+  { id: 'ex_walk',             name: 'Brisk Walk',               category: 'cardio',   primaryMuscles: ['full_body'],secondaryMuscles: [],                     equipment: 'none',       isCustom: false, createdAt: '2024-01-01T00:00:00Z' },
+
+  // ─── MOBILITY ──────────────────────────────────────
+  { id: 'ex_hip_9090',         name: '90/90 Hip Stretch',        category: 'mobility', primaryMuscles: ['glutes'],   secondaryMuscles: ['hamstrings'],         equipment: 'none',       isCustom: false, createdAt: '2024-01-01T00:00:00Z', instructions: '2 min/side. Focus on posterior chain release.' },
+  { id: 'ex_worlds_greatest',  name: "World's Greatest Stretch", category: 'mobility', primaryMuscles: ['full_body'],secondaryMuscles: [],                     equipment: 'none',       isCustom: false, createdAt: '2024-01-01T00:00:00Z', instructions: '5 reps/side. Combine hip flexor, thoracic, hamstring.' },
+  { id: 'ex_couch_stretch',    name: 'Couch Stretch',            category: 'mobility', primaryMuscles: ['quads'],    secondaryMuscles: ['glutes'],             equipment: 'none',       isCustom: false, createdAt: '2024-01-01T00:00:00Z', instructions: '2 min/side against a wall.' },
+  { id: 'ex_cat_cow',          name: 'Cat-Cow',                  category: 'mobility', primaryMuscles: ['back'],     secondaryMuscles: ['core'],               equipment: 'none',       isCustom: false, createdAt: '2024-01-01T00:00:00Z' },
+  { id: 'ex_thoracic_rot',     name: 'Thoracic Rotation',        category: 'mobility', primaryMuscles: ['back'],     secondaryMuscles: [],                     equipment: 'none',       isCustom: false, createdAt: '2024-01-01T00:00:00Z' },
+  { id: 'ex_ankle_mob',        name: 'Ankle Mobility Drill',     category: 'mobility', primaryMuscles: ['calves'],   secondaryMuscles: [],                     equipment: 'none',       isCustom: false, createdAt: '2024-01-01T00:00:00Z' },
+  { id: 'ex_pigeon_pose',      name: 'Pigeon Pose',              category: 'mobility', primaryMuscles: ['glutes'],   secondaryMuscles: [],                     equipment: 'none',       isCustom: false, createdAt: '2024-01-01T00:00:00Z', instructions: '90 sec/side.' },
+  { id: 'ex_shoulder_cir',     name: 'Shoulder CARs',            category: 'mobility', primaryMuscles: ['shoulders'],secondaryMuscles: [],                     equipment: 'none',       isCustom: false, createdAt: '2024-01-01T00:00:00Z', instructions: 'Controlled Articular Rotations. 5 slow circles/direction/side.' },
+
+  // ─── KETTLEBELL ────────────────────────────────────
+  { id: 'ex_kb_swing',         name: 'Kettlebell Swing',         category: 'strength', primaryMuscles: ['glutes'],   secondaryMuscles: ['hamstrings','back'],   equipment: 'kettlebell', isCustom: false, createdAt: '2024-01-01T00:00:00Z' },
+  { id: 'ex_kb_press',         name: 'Kettlebell Press',         category: 'strength', primaryMuscles: ['shoulders'],secondaryMuscles: ['triceps'],             equipment: 'kettlebell', isCustom: false, createdAt: '2024-01-01T00:00:00Z' },
+  { id: 'ex_kb_snatch',        name: 'Kettlebell Snatch',        category: 'strength', primaryMuscles: ['full_body'],secondaryMuscles: [],                     equipment: 'kettlebell', isCustom: false, createdAt: '2024-01-01T00:00:00Z' },
+  { id: 'ex_kb_turkish',       name: 'Turkish Get-Up',           category: 'strength', primaryMuscles: ['full_body'],secondaryMuscles: [],                     equipment: 'kettlebell', isCustom: false, createdAt: '2024-01-01T00:00:00Z', instructions: 'Mobility + strength integration. 3-5 reps/side with slow tempo.' },
+];

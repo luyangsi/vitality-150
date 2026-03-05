@@ -38,6 +38,7 @@ export function useTemplates() {
   }, [user?.id]);
 
   async function addTemplate(data: Omit<WorkoutTemplate, 'id' | 'createdAt' | 'updatedAt'>): Promise<WorkoutTemplate> {
+    if (!supabase) return { ...data, id: uuid(), createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() };
     const now = new Date().toISOString();
     const id = uuid();
     const { data: row } = await supabase
@@ -62,6 +63,7 @@ export function useTemplates() {
   }
 
   async function updateTemplate(id: string, updates: Partial<WorkoutTemplate>) {
+    if (!supabase) return;
     const dbUpdates: Record<string, unknown> = { updated_at: new Date().toISOString() };
     if (updates.name !== undefined) dbUpdates.name = updates.name;
     if (updates.category !== undefined) dbUpdates.category = updates.category;
@@ -80,6 +82,7 @@ export function useTemplates() {
   }
 
   async function deleteTemplate(id: string) {
+    if (!supabase) return;
     await supabase.from('workout_templates').delete().eq('id', id);
     setTemplates(prev => prev.filter(t => t.id !== id));
   }

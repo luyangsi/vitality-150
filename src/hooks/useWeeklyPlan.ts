@@ -52,7 +52,7 @@ export function useWeeklyPlan() {
   }
 
   async function savePlan(plan: WeeklyPlan) {
-    if (!user) return;
+    if (!user || !supabase) return;
     const { data: row } = await supabase
       .from('weekly_plans')
       .upsert(

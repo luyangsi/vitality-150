@@ -40,7 +40,7 @@ export function useExerciseLibrary() {
   const allExercises = [...PREDEFINED_EXERCISES, ...custom];
 
   async function addCustomExercise(data: Omit<Exercise, 'id' | 'isCustom' | 'createdAt'>): Promise<Exercise> {
-    if (!user) throw new Error('Not authenticated');
+    if (!user || !supabase) throw new Error('Not authenticated');
     const { data: row } = await supabase
       .from('custom_exercises')
       .insert({
@@ -60,6 +60,7 @@ export function useExerciseLibrary() {
   }
 
   async function deleteCustomExercise(id: string) {
+    if (!supabase) return;
     await supabase.from('custom_exercises').delete().eq('id', id);
     setCustom(prev => prev.filter(e => e.id !== id));
   }

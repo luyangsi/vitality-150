@@ -117,7 +117,7 @@ export function useLongevityMetrics() {
   }, [user?.id]);
 
   async function upsertDailyLog(date: string, updates: Partial<DailyLongevityLog>) {
-    if (!user) return;
+    if (!user || !supabase) return;
     const dbRow: Record<string, unknown> = { user_id: user.id, date, updated_at: new Date().toISOString() };
     if ('hrv' in updates) dbRow.hrv = updates.hrv ?? null;
     if ('zone2' in updates) dbRow.zone2 = updates.zone2 ?? null;
@@ -142,7 +142,7 @@ export function useLongevityMetrics() {
   }
 
   async function addVO2MaxEntry(entry: VO2MaxEntry) {
-    if (!user) return;
+    if (!user || !supabase) return;
     await supabase.from('vo2max_history').insert({
       user_id: user.id,
       date: entry.date,
@@ -157,7 +157,7 @@ export function useLongevityMetrics() {
   }
 
   async function addMobilityAssessment(assessment: MobilityAssessment) {
-    if (!user) return;
+    if (!user || !supabase) return;
     await supabase.from('mobility_history').insert({
       user_id: user.id,
       date: assessment.date,
@@ -171,7 +171,7 @@ export function useLongevityMetrics() {
   }
 
   async function addStrengthBenchmark(benchmark: StrengthBenchmark) {
-    if (!user) return;
+    if (!user || !supabase) return;
     await supabase.from('strength_benchmarks').insert({
       user_id: user.id,
       date: benchmark.date,
@@ -189,7 +189,7 @@ export function useLongevityMetrics() {
   }
 
   async function updateProfile(updates: Partial<UserProfile>) {
-    if (!user) return;
+    if (!user || !supabase) return;
     const dbUpdates: Record<string, unknown> = { updated_at: new Date().toISOString() };
     if (updates.name !== undefined) dbUpdates.name = updates.name;
     if (updates.birthYear !== undefined) dbUpdates.birth_year = updates.birthYear;

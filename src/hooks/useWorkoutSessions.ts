@@ -44,7 +44,7 @@ export function useWorkoutSessions() {
   }, [user?.id]);
 
   async function addSession(session: WorkoutSession) {
-    if (!user) return;
+    if (!user || !supabase) return;
     const { data } = await supabase
       .from('workout_sessions')
       .insert({
@@ -71,6 +71,7 @@ export function useWorkoutSessions() {
   }
 
   async function updateSession(id: string, updates: Partial<WorkoutSession>) {
+    if (!supabase) return;
     const dbUpdates: Record<string, unknown> = { updated_at: new Date().toISOString() };
     if (updates.name !== undefined) dbUpdates.name = updates.name;
     if (updates.status !== undefined) dbUpdates.status = updates.status;
@@ -90,6 +91,7 @@ export function useWorkoutSessions() {
   }
 
   async function deleteSession(id: string) {
+    if (!supabase) return;
     await supabase.from('workout_sessions').delete().eq('id', id);
     setSessions(prev => prev.filter(s => s.id !== id));
   }

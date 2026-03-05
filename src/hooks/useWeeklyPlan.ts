@@ -26,11 +26,11 @@ function rowToPlan(row: Record<string, any>): WeeklyPlan {
 
 export function useWeeklyPlan() {
   const { user } = useAuth();
-  const supabase = createClient();
+  const [supabase] = useState(() => { if (typeof window === 'undefined') return null; try { return createClient(); } catch { return null; } });
   const [plans, setPlans] = useState<WeeklyPlan[]>([]);
 
   useEffect(() => {
-    if (!user) { setPlans([]); return; }
+    if (!supabase || !user) { setPlans([]); return; }
     supabase
       .from('weekly_plans')
       .select('*')

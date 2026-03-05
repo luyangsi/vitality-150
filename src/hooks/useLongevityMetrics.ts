@@ -92,11 +92,11 @@ function rowToStrength(row: Record<string, any>): StrengthBenchmark {
 
 export function useLongevityMetrics() {
   const { user } = useAuth();
-  const supabase = createClient();
+  const [supabase] = useState(() => { if (typeof window === 'undefined') return null; try { return createClient(); } catch { return null; } });
   const [state, setState] = useState<LongevityState>(DEFAULT_STATE);
 
   useEffect(() => {
-    if (!user) { setState(DEFAULT_STATE); return; }
+    if (!supabase || !user) { setState(DEFAULT_STATE); return; }
 
     Promise.all([
       supabase.from('profiles').select('*').eq('id', user.id).single(),

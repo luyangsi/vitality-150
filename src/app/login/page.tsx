@@ -8,7 +8,6 @@ import { cn } from '@/lib/utils';
 
 export default function LoginPage() {
   const router = useRouter();
-  const supabase = createClient();
 
   const [mode, setMode] = useState<'signin' | 'signup'>('signin');
   const [email, setEmail] = useState('');
@@ -24,6 +23,7 @@ export default function LoginPage() {
     setLoading(true);
     setError('');
 
+    const supabase = createClient();
     if (mode === 'signup') {
       const { error } = await supabase.auth.signUp({
         email,
@@ -41,6 +41,7 @@ export default function LoginPage() {
   }
 
   async function handleGoogle() {
+    const supabase = createClient();
     await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: { redirectTo: `${location.origin}/auth/callback` },

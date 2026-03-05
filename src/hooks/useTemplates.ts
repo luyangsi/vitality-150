@@ -22,11 +22,11 @@ function rowToTemplate(row: Record<string, any>): WorkoutTemplate {
 
 export function useTemplates() {
   const { user } = useAuth();
-  const supabase = createClient();
+  const [supabase] = useState(() => { if (typeof window === 'undefined') return null; try { return createClient(); } catch { return null; } });
   const [templates, setTemplates] = useState<WorkoutTemplate[]>([]);
 
   useEffect(() => {
-    if (!user) { setTemplates([]); return; }
+    if (!supabase || !user) { setTemplates([]); return; }
     supabase
       .from('workout_templates')
       .select('*')

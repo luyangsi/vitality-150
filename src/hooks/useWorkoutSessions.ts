@@ -28,11 +28,11 @@ function rowToSession(row: Record<string, any>): WorkoutSession {
 
 export function useWorkoutSessions() {
   const { user } = useAuth();
-  const supabase = createClient();
+  const [supabase] = useState(() => { if (typeof window === 'undefined') return null; try { return createClient(); } catch { return null; } });
   const [sessions, setSessions] = useState<WorkoutSession[]>([]);
 
   useEffect(() => {
-    if (!user) { setSessions([]); return; }
+    if (!supabase || !user) { setSessions([]); return; }
     supabase
       .from('workout_sessions')
       .select('*')

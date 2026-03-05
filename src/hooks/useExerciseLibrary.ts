@@ -22,11 +22,11 @@ function rowToExercise(row: Record<string, any>): Exercise {
 
 export function useExerciseLibrary() {
   const { user } = useAuth();
-  const supabase = createClient();
+  const [supabase] = useState(() => { if (typeof window === 'undefined') return null; try { return createClient(); } catch { return null; } });
   const [custom, setCustom] = useState<Exercise[]>([]);
 
   useEffect(() => {
-    if (!user) { setCustom([]); return; }
+    if (!supabase || !user) { setCustom([]); return; }
     supabase
       .from('custom_exercises')
       .select('*')

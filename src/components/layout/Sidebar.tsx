@@ -1,11 +1,12 @@
 'use client';
 
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import {
-  LayoutDashboard, Calendar, Zap, Clock, TrendingUp, Heart, Dumbbell, Sparkles
+  LayoutDashboard, Calendar, Zap, Clock, TrendingUp, Heart, Dumbbell, Sparkles, LogOut
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { useAuth } from '@/lib/supabase/AuthContext';
 
 const NAV_ITEMS = [
   { href: '/dashboard',  icon: LayoutDashboard, label: 'Dashboard'     },
@@ -19,6 +20,8 @@ const NAV_ITEMS = [
 
 export function Sidebar() {
   const pathname = usePathname();
+  const router = useRouter();
+  const { signOut } = useAuth();
 
   return (
     <aside className="fixed left-0 top-0 h-screen w-64 bg-slate-900 border-r border-slate-800 flex flex-col z-40">
@@ -64,10 +67,15 @@ export function Sidebar() {
       </nav>
 
       {/* Footer */}
-      <div className="p-4 border-t border-slate-800">
-        <p className="text-xs text-slate-600 text-center">
-          Train for 150 years of life
-        </p>
+      <div className="p-4 border-t border-slate-800 space-y-2">
+        <p className="text-xs text-slate-600 text-center">Train for 150 years of life</p>
+        <button
+          onClick={() => signOut().then(() => router.push('/login'))}
+          className="flex items-center gap-2 text-xs text-slate-500 hover:text-rose-400 transition-colors w-full justify-center py-1"
+        >
+          <LogOut className="w-3.5 h-3.5" />
+          Sign out
+        </button>
       </div>
     </aside>
   );

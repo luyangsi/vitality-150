@@ -83,10 +83,10 @@ export default function ActiveSessionPage({ params }: { params: { sessionId: str
     setRestingFor(exLogId);
   }
 
-  function handleFinish() {
+  async function handleFinish() {
     const completed = finishSession();
     if (completed) {
-      addSession(completed);
+      await addSession(completed);
       router.push('/history');
     }
   }

@@ -4,6 +4,8 @@ import './globals.css';
 import { AuthProvider } from '@/lib/supabase/AuthContext';
 import { ClientLayout } from '@/components/layout/ClientLayout';
 
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
   title: 'Vitality 150 — Train for a 150-Year Life',
   description: 'Science-backed exercise planning and longevity tracking.',

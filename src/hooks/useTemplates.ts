@@ -6,7 +6,6 @@ import { useAuth } from '@/lib/supabase/AuthContext';
 import type { WorkoutTemplate } from '@/types/planner';
 import { uuid } from '@/lib/utils';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function rowToTemplate(row: Record<string, any>): WorkoutTemplate {
   return {
     id: row.id,

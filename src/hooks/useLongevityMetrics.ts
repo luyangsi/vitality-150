@@ -29,7 +29,6 @@ const DEFAULT_STATE: LongevityState = {
   profile: DEFAULT_PROFILE,
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function rowToProfile(row: Record<string, any>): UserProfile {
   return {
     name: row.name || '',
@@ -47,7 +46,6 @@ function rowToProfile(row: Record<string, any>): UserProfile {
   };
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function rowToDailyLog(row: Record<string, any>): DailyLongevityLog {
   return {
     date: String(row.date).slice(0, 10),
@@ -62,7 +60,6 @@ function rowToDailyLog(row: Record<string, any>): DailyLongevityLog {
   };
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function rowToVO2Max(row: Record<string, any>): VO2MaxEntry {
   return {
     date: String(row.date).slice(0, 10),
@@ -72,7 +69,6 @@ function rowToVO2Max(row: Record<string, any>): VO2MaxEntry {
   };
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function rowToMobility(row: Record<string, any>): MobilityAssessment {
   return {
     date: String(row.date).slice(0, 10),
@@ -82,7 +78,6 @@ function rowToMobility(row: Record<string, any>): MobilityAssessment {
   };
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function rowToStrength(row: Record<string, any>): StrengthBenchmark {
   return {
     date: String(row.date).slice(0, 10),

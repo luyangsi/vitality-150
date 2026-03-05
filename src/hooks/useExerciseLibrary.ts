@@ -6,7 +6,6 @@ import { useAuth } from '@/lib/supabase/AuthContext';
 import { PREDEFINED_EXERCISES } from '@/lib/exerciseData';
 import type { Exercise } from '@/types/exercise';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function rowToExercise(row: Record<string, any>): Exercise {
   return {
     id: row.id,

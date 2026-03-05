@@ -6,7 +6,6 @@ import { useAuth } from '@/lib/supabase/AuthContext';
 import type { WorkoutSession } from '@/types/session';
 import { todayStr, uuid } from '@/lib/utils';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function rowToSession(row: Record<string, any>): WorkoutSession {
   return {
     id: row.id,

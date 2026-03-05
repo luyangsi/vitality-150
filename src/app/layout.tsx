@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react';
 import type { Metadata } from 'next';
 import './globals.css';
 import { Sidebar } from '@/components/layout/Sidebar';
@@ -8,7 +9,7 @@ export const metadata: Metadata = {
   description: 'Science-backed exercise planning and longevity tracking.',
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <body className="bg-slate-950 text-slate-100 min-h-screen">

@@ -1,5 +1,6 @@
 'use client';
 
+import type { ElementType } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Zap, TrendingUp, Flame, Activity, Dumbbell, Moon, Brain } from 'lucide-react';
@@ -20,7 +21,7 @@ import { formatDuration, formatDate } from '@/lib/utils';
 import { subDays, format } from 'date-fns';
 import type { LongevityPillar } from '@/types/longevity';
 
-const PILLAR_CONFIG: Record<LongevityPillar, { label: string; color: string; icon: React.ElementType }> = {
+const PILLAR_CONFIG: Record<LongevityPillar, { label: string; color: string; icon: ElementType }> = {
   zone2_cardio:   { label: 'Zone 2',    color: '#22d3ee', icon: Activity   },
   vo2max:         { label: 'VO2 Max',   color: '#60a5fa', icon: TrendingUp },
   strength:       { label: 'Strength',  color: '#fbbf24', icon: Dumbbell   },

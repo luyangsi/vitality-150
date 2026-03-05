@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react';
 import { cn } from '@/lib/utils';
 
 type BadgeColor = 'default' | 'vitality' | 'amber' | 'rose' | 'blue' | 'purple' | 'green' | 'cyan';
@@ -14,7 +15,7 @@ const colorClasses: Record<BadgeColor, string> = {
 };
 
 interface BadgeProps {
-  children: React.ReactNode;
+  children: ReactNode;
   color?: BadgeColor;
   className?: string;
   dot?: string; // hex color for dot indicator

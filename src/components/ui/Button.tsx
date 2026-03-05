@@ -1,12 +1,13 @@
+import type { ReactNode, ButtonHTMLAttributes } from 'react';
 import { cn } from '@/lib/utils';
 
 type Variant = 'primary' | 'secondary' | 'ghost' | 'danger';
 type Size = 'sm' | 'md' | 'lg';
 
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: Variant;
   size?: Size;
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 const variantClasses: Record<Variant, string> = {

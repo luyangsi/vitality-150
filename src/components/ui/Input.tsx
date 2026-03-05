@@ -1,6 +1,7 @@
+import type { ReactNode, InputHTMLAttributes, SelectHTMLAttributes, TextareaHTMLAttributes } from 'react';
 import { cn } from '@/lib/utils';
 
-interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   error?: string;
 }
@@ -24,9 +25,9 @@ export function Input({ label, error, className, ...props }: InputProps) {
   );
 }
 
-interface SelectProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
+interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
   label?: string;
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 export function Select({ label, children, className, ...props }: SelectProps) {
@@ -48,7 +49,7 @@ export function Select({ label, children, className, ...props }: SelectProps) {
   );
 }
 
-interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
+interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   label?: string;
 }
 

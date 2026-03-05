@@ -1,7 +1,8 @@
+import type { ReactNode } from 'react';
 import { cn } from '@/lib/utils';
 
 interface CardProps {
-  children: React.ReactNode;
+  children: ReactNode;
   className?: string;
   glow?: boolean;
   onClick?: () => void;
@@ -25,10 +26,10 @@ export function Card({ children, className, glow, onClick }: CardProps) {
   );
 }
 
-export function CardHeader({ children, className }: { children: React.ReactNode; className?: string }) {
+export function CardHeader({ children, className }: { children: ReactNode; className?: string }) {
   return <div className={cn('flex items-center justify-between mb-3', className)}>{children}</div>;
 }
 
-export function CardTitle({ children, className }: { children: React.ReactNode; className?: string }) {
+export function CardTitle({ children, className }: { children: ReactNode; className?: string }) {
   return <h3 className={cn('text-sm font-semibold text-slate-300 uppercase tracking-wider', className)}>{children}</h3>;
 }

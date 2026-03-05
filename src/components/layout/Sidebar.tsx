@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import {
-  LayoutDashboard, Calendar, Zap, Clock, TrendingUp, Heart, Dumbbell
+  LayoutDashboard, Calendar, Zap, Clock, TrendingUp, Heart, Dumbbell, Sparkles
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -14,6 +14,7 @@ const NAV_ITEMS = [
   { href: '/history',    icon: Clock,            label: 'History'       },
   { href: '/progress',   icon: TrendingUp,       label: 'Progress'      },
   { href: '/longevity',  icon: Heart,            label: 'Longevity Hub' },
+  { href: '/coach',      icon: Sparkles,         label: 'AI Coach'      },
 ];
 
 export function Sidebar() {
@@ -38,6 +39,7 @@ export function Sidebar() {
       <nav className="flex-1 p-4 space-y-1">
         {NAV_ITEMS.map(({ href, icon: Icon, label }) => {
           const active = pathname === href || pathname.startsWith(href + '/');
+          const isCoach = href === '/coach';
           return (
             <Link
               key={href}
@@ -46,11 +48,16 @@ export function Sidebar() {
                 'flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-200',
                 active
                   ? 'bg-vitality-500/10 text-vitality-500 border border-vitality-500/20 shadow-vitality'
+                  : isCoach
+                  ? 'text-vitality-500/70 hover:text-vitality-400 hover:bg-vitality-500/5 border border-vitality-500/10'
                   : 'text-slate-400 hover:text-slate-100 hover:bg-slate-800'
               )}
             >
-              <Icon className={cn('w-4 h-4 flex-shrink-0', active ? 'text-vitality-500' : '')} />
+              <Icon className={cn('w-4 h-4 flex-shrink-0', active || isCoach ? 'text-vitality-500' : '')} />
               {label}
+              {isCoach && !active && (
+                <span className="ml-auto text-[10px] bg-vitality-500/15 text-vitality-500 px-1.5 py-0.5 rounded font-mono">AI</span>
+              )}
             </Link>
           );
         })}

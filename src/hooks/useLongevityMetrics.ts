@@ -57,6 +57,8 @@ function rowToDailyLog(row: Record<string, any>): DailyLongevityLog {
     stressLevel: row.stress_level ?? undefined,
     alcoholUnits: row.alcohol_units ?? undefined,
     notes: row.notes ?? undefined,
+    muscleSoreness: row.muscle_soreness ?? undefined,
+    injuryNotes: row.injury_notes ?? undefined,
   };
 }
 
@@ -127,6 +129,8 @@ export function useLongevityMetrics() {
     if ('stressLevel' in updates) dbRow.stress_level = updates.stressLevel ?? null;
     if ('alcoholUnits' in updates) dbRow.alcohol_units = updates.alcoholUnits ?? null;
     if ('notes' in updates) dbRow.notes = updates.notes ?? null;
+    if ('muscleSoreness' in updates) dbRow.muscle_soreness = updates.muscleSoreness ?? null;
+    if ('injuryNotes' in updates) dbRow.injury_notes = updates.injuryNotes ?? null;
 
     await supabase.from('daily_longevity_logs').upsert(dbRow, { onConflict: 'user_id,date' });
 
@@ -211,7 +215,7 @@ export function useLongevityMetrics() {
     sleepHours?: number; sleepQuality?: number; hrvMs?: number;
     restingHR?: number; mobilityScore?: number; stressLevel?: number;
     zone2Minutes?: number; zone2ActivityType?: 'run' | 'bike' | 'row' | 'swim' | 'walk' | 'other';
-    notes?: string;
+    notes?: string; muscleSoreness?: Partial<Record<string, number>>; injuryNotes?: string;
   }) {
     const today = todayStr();
     const updates: Partial<DailyLongevityLog> = {};
@@ -220,6 +224,8 @@ export function useLongevityMetrics() {
     if (data.mobilityScore !== undefined) updates.mobilityScore = data.mobilityScore;
     if (data.stressLevel !== undefined) updates.stressLevel = data.stressLevel;
     if (data.notes !== undefined) updates.notes = data.notes;
+    if (data.muscleSoreness !== undefined) updates.muscleSoreness = data.muscleSoreness;
+    if (data.injuryNotes !== undefined) updates.injuryNotes = data.injuryNotes;
     if (data.hrvMs !== undefined) {
       updates.hrv = { date: today, hrvMs: data.hrvMs, restingHeartRate: data.restingHR };
     }

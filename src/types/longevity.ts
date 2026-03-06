@@ -65,6 +65,8 @@ export interface DailyLongevityLog {
   stressLevel?: number;  // 1-5
   alcoholUnits?: number;
   notes?: string;
+  muscleSoreness?: Partial<Record<string, number>>;  // muscle group → 1-5
+  injuryNotes?: string;
 }
 
 export interface LongevityScore {

@@ -6,10 +6,12 @@ import {
   ResponsiveContainer, RadarChart, Radar, PolarGrid, PolarAngleAxis, ReferenceLine,
   AreaChart, Area
 } from 'recharts';
-import { Plus, Activity, TrendingUp, Brain, Moon, Dumbbell, Heart } from 'lucide-react';
+import { Plus, Activity, TrendingUp, Brain, Moon, Dumbbell, Heart, AlertTriangle } from 'lucide-react';
+import { MUSCLE_GROUP_COLORS, type MuscleGroup } from '@/types/exercise';
 import { useLongevityMetrics } from '@/hooks/useLongevityMetrics';
 import { useWorkoutSessions } from '@/hooks/useWorkoutSessions';
 import { computeLongevityScore } from '@/lib/calculations/longevityScore';
+import { computeBiologicalAge } from '@/lib/calculations/biologicalAge';
 import { getLast12WeeksZone2 } from '@/lib/calculations/zone2';
 import { getBenchmarkForUser } from '@/lib/calculations/strengthBenchmarks';
 import { Card, CardHeader, CardTitle } from '@/components/ui/Card';
@@ -38,19 +40,24 @@ const PILLAR_LABELS: Record<LongevityPillar, string> = {
 };
 
 export default function LongevityPage() {
-  const { state, updateProfile, logTodayMetrics, addVO2MaxEntry, addStrengthBenchmark } = useLongevityMetrics();
+  const { state, todayLog, updateProfile, logTodayMetrics, addVO2MaxEntry, addStrengthBenchmark } = useLongevityMetrics();
   const { sessions } = useWorkoutSessions();
   const [showMetricModal, setShowMetricModal] = useState(false);
   const [showProfileModal, setShowProfileModal] = useState(false);
   const [showVO2Modal, setShowVO2Modal] = useState(false);
   const [showBenchmarkModal, setShowBenchmarkModal] = useState(false);
 
+  const MUSCLE_GROUPS: MuscleGroup[] = [
+    'chest','back','shoulders','biceps','triceps','core','glutes','quads','hamstrings','calves',
+  ];
+
   // Metric log form state
   const [metricForm, setMetricForm] = useState({
     sleepHours: '', sleepQuality: '3', hrvMs: '', restingHR: '',
     mobilityScore: '', stressLevel: '3', zone2Minutes: '', zone2ActivityType: 'run' as const,
-    notes: '',
+    notes: '', injuryNotes: '',
   });
+  const [muscleSoreness, setMuscleSoreness] = useState<Partial<Record<MuscleGroup, number>>>({});
 
   // Profile form state
   const [profileForm, setProfileForm] = useState({
@@ -67,6 +74,7 @@ export default function LongevityPage() {
   const [benchForm, setBenchForm] = useState({ gripStrengthKg: '', legPressRatio: '', pushUpCount: '', pullUpCount: '', bodyweightKg: String(state.profile.bodyweightKg) });
 
   const score = computeLongevityScore(state);
+  const bioAge = computeBiologicalAge(state);
   const profile = state.profile;
   const age = new Date().getFullYear() - profile.birthYear;
 
@@ -113,7 +121,10 @@ export default function LongevityPage() {
       zone2Minutes: metricForm.zone2Minutes ? Number(metricForm.zone2Minutes) : undefined,
       zone2ActivityType: metricForm.zone2ActivityType,
       notes: metricForm.notes || undefined,
+      muscleSoreness: Object.keys(muscleSoreness).length > 0 ? muscleSoreness : undefined,
+      injuryNotes: metricForm.injuryNotes || undefined,
     });
+    setMuscleSoreness({});
     setShowMetricModal(false);
   }
 
@@ -153,6 +164,17 @@ export default function LongevityPage() {
           <p className="text-xs text-gray-500 uppercase tracking-wider mb-4">Longevity Score</p>
           <ProgressRing value={score.overall} size={160} strokeWidth={10} label={String(score.overall)} sublabel="/ 100" />
           <p className="text-xs text-gray-500 mt-3">Age: {age} · {profile.gender}</p>
+          {bioAge && (
+            <div className="mt-4 border-t border-gray-100 pt-4 w-full text-center space-y-1">
+              <p className="text-xs text-gray-400 uppercase tracking-wider">Biological Age</p>
+              <p className="text-2xl font-bold text-gray-900">{bioAge.biologicalAge} <span className="text-base font-normal text-gray-400">yrs</span></p>
+              <span className={`inline-block px-2.5 py-0.5 rounded-full text-xs font-medium ${
+                bioAge.deltaYears <= 0 ? 'bg-vitality-50 text-vitality-700' : 'bg-rose-50 text-rose-600'
+              }`}>
+                {bioAge.deltaYears <= 0 ? '↓' : '↑'} {Math.abs(bioAge.deltaYears)} yr{Math.abs(bioAge.deltaYears) !== 1 ? 's' : ''} {bioAge.deltaYears <= 0 ? 'younger' : 'older'}
+              </span>
+            </div>
+          )}
         </Card>
 
         <div className="lg:col-span-2">
@@ -309,6 +331,44 @@ export default function LongevityPage() {
         )}
       </Card>
 
+      {/* Soreness Today */}
+      <Card>
+        <CardHeader>
+          <CardTitle><AlertTriangle className="w-4 h-4 inline mr-1 text-amber-500" />Soreness &amp; Injury Today</CardTitle>
+          <button onClick={() => setShowMetricModal(true)} className="text-xs text-vitality-600 hover:text-vitality-700">Log →</button>
+        </CardHeader>
+        {todayLog?.muscleSoreness && Object.keys(todayLog.muscleSoreness).length > 0 ? (
+          <div className="space-y-3">
+            <div className="flex flex-wrap gap-2">
+              {(Object.entries(todayLog.muscleSoreness) as [MuscleGroup, number][])
+                .filter(([, level]) => level > 0)
+                .sort(([, a], [, b]) => b - a)
+                .map(([mg, level]) => {
+                  const bgColor = level <= 2 ? '#FEF9C3' : level <= 4 ? '#FED7AA' : '#FEE2E2';
+                  const textColor = level <= 2 ? '#713F12' : level <= 4 ? '#7C2D12' : '#7F1D1D';
+                  return (
+                    <span key={mg} className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium border"
+                      style={{ backgroundColor: bgColor, color: textColor, borderColor: MUSCLE_GROUP_COLORS[mg] + '60' }}>
+                      <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: MUSCLE_GROUP_COLORS[mg] }} />
+                      {mg.replace('_', ' ')} · {level}/5
+                    </span>
+                  );
+                })}
+            </div>
+            {todayLog.injuryNotes && (
+              <p className="text-sm text-gray-600 bg-amber-50 border border-amber-100 rounded-lg px-3 py-2">
+                <span className="font-medium text-amber-700">Note: </span>{todayLog.injuryNotes}
+              </p>
+            )}
+          </div>
+        ) : (
+          <p className="text-sm text-gray-400 text-center py-4">
+            No soreness logged today.{' '}
+            <button onClick={() => setShowMetricModal(true)} className="text-vitality-600 hover:text-vitality-700">Log Today →</button>
+          </p>
+        )}
+      </Card>
+
       {/* Metric log modal */}
       <Modal open={showMetricModal} onClose={() => setShowMetricModal(false)} title="Log Today's Metrics" size="md">
         <div className="space-y-4">
@@ -358,6 +418,36 @@ export default function LongevityPage() {
             </Select>
           </div>
           <Input label="Notes" value={metricForm.notes} onChange={e => setMetricForm(f => ({ ...f, notes: e.target.value }))} />
+
+          {/* Muscle Soreness */}
+          <div>
+            <p className="label mb-2">Muscle Soreness (0 = none, 5 = severe)</p>
+            <div className="flex flex-wrap gap-2">
+              {MUSCLE_GROUPS.map(mg => {
+                const level = muscleSoreness[mg] ?? 0;
+                const bgColor = level === 0 ? '#F3F4F6' : level <= 2 ? '#FEF9C3' : level <= 4 ? '#FED7AA' : '#FEE2E2';
+                const textColor = level === 0 ? '#6B7280' : level <= 2 ? '#713F12' : level <= 4 ? '#7C2D12' : '#7F1D1D';
+                return (
+                  <button
+                    key={mg}
+                    type="button"
+                    onClick={() => setMuscleSoreness(s => ({ ...s, [mg]: ((s[mg] ?? 0) + 1) % 6 }))}
+                    className="flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium border transition-colors"
+                    style={{ backgroundColor: bgColor, color: textColor, borderColor: level > 0 ? MUSCLE_GROUP_COLORS[mg] + '60' : '#E5E7EB' }}
+                  >
+                    <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: MUSCLE_GROUP_COLORS[mg] }} />
+                    {mg.replace('_', ' ')} {level > 0 && `(${level})`}
+                  </button>
+                );
+              })}
+            </div>
+            <p className="text-xs text-gray-400 mt-1.5">Click a muscle to rate soreness · click again to increase</p>
+          </div>
+
+          <Input label="Injury / Pain Notes" value={metricForm.injuryNotes}
+            onChange={e => setMetricForm(f => ({ ...f, injuryNotes: e.target.value }))}
+            placeholder="e.g. Left knee tight, shoulder clicking..." />
+
           <div className="flex justify-end gap-2 pt-2 border-t border-gray-100">
             <Button variant="secondary" onClick={() => setShowMetricModal(false)}>Cancel</Button>
             <Button onClick={handleSaveMetrics}>Save Metrics</Button>

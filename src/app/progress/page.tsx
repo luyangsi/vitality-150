@@ -34,6 +34,7 @@ export default function ProgressPage() {
 
   const [range, setRange] = useState<Range>('3M');
   const [selectedExerciseId, setSelectedExerciseId] = useState<string>('');
+  const [overloadExerciseId, setOverloadExerciseId] = useState<string>('');
 
   const cutoff = subDays(new Date(), RANGE_DAYS[range]);
   const filtered = sessions.filter(s => s.status === 'completed' && parseISO(s.date) >= cutoff);
@@ -123,6 +124,34 @@ export default function ProgressPage() {
     const ids = new Set(sessions.flatMap(s => s.exercises.map(e => e.exerciseId)));
     return allExercises.filter(e => ids.has(e.id));
   }, [sessions, allExercises]);
+
+  // Progressive overload data for selected exercise
+  const overloadData = useMemo(() => {
+    if (!overloadExerciseId) return [];
+    return sessions
+      .filter(s => s.status === 'completed')
+      .flatMap(s => {
+        const ex = s.exercises.find(e => e.exerciseId === overloadExerciseId);
+        if (!ex) return [];
+        const workSets = ex.sets.filter(st => !st.isWarmup);
+        if (workSets.length === 0) return [];
+        const best = workSets.reduce((b, st) =>
+          estimatedOneRepMax(st.weight, st.reps) > estimatedOneRepMax(b.weight, b.reps) ? st : b
+        );
+        return [{ date: s.date, weight: best.weight, reps: best.reps, est1RM: Math.round(estimatedOneRepMax(best.weight, best.reps)) }];
+      })
+      .sort((a, b) => a.date.localeCompare(b.date));
+  }, [sessions, overloadExerciseId]);
+
+  const overloadSuggestion = useMemo(() => {
+    if (overloadData.length < 2) return null;
+    const last = overloadData[overloadData.length - 1];
+    const prev = overloadData[overloadData.length - 2];
+    if (last.weight === prev.weight) {
+      return { weight: last.weight + 2.5, reps: last.reps };
+    }
+    return null;
+  }, [overloadData]);
 
   const totalVolume = Math.round(filtered.flatMap(s => s.exercises.flatMap(e => e.sets.filter(st => !st.isWarmup))).reduce((sum, st) => sum + st.weight * st.reps, 0));
 
@@ -251,6 +280,64 @@ export default function ProgressPage() {
               <p className="text-gray-400 text-sm text-center py-4">No PRs yet. Keep lifting!</p>
             )}
           </div>
+        </Card>
+
+        {/* Progressive Overload Tracker */}
+        <Card className="lg:col-span-2">
+          <CardHeader>
+            <CardTitle><TrendingUp className="w-4 h-4 inline mr-1 text-vitality-600" />Progressive Overload Tracker</CardTitle>
+          </CardHeader>
+          <div className="mb-4">
+            <select
+              value={overloadExerciseId}
+              onChange={e => setOverloadExerciseId(e.target.value)}
+              className="input-base max-w-xs"
+            >
+              <option value="">— Select an exercise —</option>
+              {loggedExercises.filter(e => e.category === 'strength').map(e => (
+                <option key={e.id} value={e.id}>{e.name}</option>
+              ))}
+            </select>
+          </div>
+
+          {!overloadExerciseId ? (
+            <p className="text-sm text-gray-400 text-center py-6">Select an exercise to see its progression over time.</p>
+          ) : overloadData.length === 0 ? (
+            <p className="text-sm text-gray-400 text-center py-6">No completed sets logged for this exercise yet.</p>
+          ) : (
+            <div className="space-y-4">
+              <ResponsiveContainer width="100%" height={160}>
+                <LineChart data={overloadData.map(d => ({ ...d, date: formatDate(d.date, 'MMM d') }))}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" />
+                  <XAxis dataKey="date" tick={{ fill: '#9CA3AF', fontSize: 10 }} />
+                  <YAxis tick={{ fill: '#9CA3AF', fontSize: 10 }} unit="kg" />
+                  <Tooltip contentStyle={CUSTOM_TOOLTIP_STYLE} formatter={(v) => [`${v} kg`, 'Est. 1RM']} />
+                  <Line type="monotone" dataKey="est1RM" stroke="#22C55E" strokeWidth={2} dot={{ r: 3, fill: '#22C55E' }} name="Est. 1RM" />
+                </LineChart>
+              </ResponsiveContainer>
+
+              <div className="flex flex-wrap gap-4 text-sm">
+                {overloadData.slice(-3).map((d, i) => (
+                  <div key={i} className="bg-gray-50 border border-gray-100 rounded-lg px-3 py-2">
+                    <p className="text-xs text-gray-400">{formatDate(d.date, 'MMM d')}</p>
+                    <p className="font-semibold text-gray-800">{d.weight}kg × {d.reps}</p>
+                    <p className="text-xs text-gray-500">≈ {d.est1RM}kg 1RM</p>
+                  </div>
+                ))}
+              </div>
+
+              {overloadSuggestion ? (
+                <div className="flex items-center gap-2 bg-vitality-50 border border-vitality-200 rounded-lg px-4 py-3">
+                  <span className="text-vitality-600 font-bold text-lg">→</span>
+                  <p className="text-sm text-vitality-700">
+                    <span className="font-semibold">Next target:</span> try <span className="font-bold">{overloadSuggestion.weight}kg × {overloadSuggestion.reps}</span> — same weight logged last 2 sessions
+                  </p>
+                </div>
+              ) : overloadData.length >= 2 && (
+                <p className="text-xs text-gray-400">Weight increased last session — keep it up!</p>
+              )}
+            </div>
+          )}
         </Card>
       </div>
     </div>

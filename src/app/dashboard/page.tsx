@@ -3,7 +3,7 @@
 import type { ElementType } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { Zap, TrendingUp, Flame, Activity, Dumbbell, Moon, Brain } from 'lucide-react';
+import { Zap, TrendingUp, Flame, Activity, Dumbbell, Moon, Brain, ArrowRight } from 'lucide-react';
 import { uuid } from '@/lib/utils';
 import { useWorkoutSessions } from '@/hooks/useWorkoutSessions';
 import { useLongevityMetrics } from '@/hooks/useLongevityMetrics';
@@ -12,6 +12,8 @@ import { useWeeklyPlan } from '@/hooks/useWeeklyPlan';
 import { useStreaks } from '@/hooks/useStreaks';
 import { useActiveSession } from '@/hooks/useActiveSession';
 import { computeLongevityScore } from '@/lib/calculations/longevityScore';
+import { computeBiologicalAge } from '@/lib/calculations/biologicalAge';
+import { computeLongevityGap } from '@/lib/calculations/longevityGap';
 import { aggregateWeeklyZone2 } from '@/lib/calculations/zone2';
 import { ProgressRing } from '@/components/ui/ProgressRing';
 import { Card, CardHeader, CardTitle } from '@/components/ui/Card';
@@ -41,6 +43,8 @@ export default function DashboardPage() {
 
 
   const score = computeLongevityScore(longevityState);
+  const bioAge = computeBiologicalAge(longevityState);
+  const longevityGap = computeLongevityGap(longevityState);
   const profile = longevityState.profile;
   const todayTemplateIds = getTodayTemplateIds();
   const todayTemplates = templates.filter(t => todayTemplateIds.includes(t.id));
@@ -185,6 +189,85 @@ export default function DashboardPage() {
               <span>{formatDuration(Math.max(0, profile.zone2WeeklyTargetMinutes - weeklyZone2))} remaining</span>
             </div>
           </div>
+        </Card>
+      </div>
+
+      {/* Biological Age + Priority Focus */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* Biological Age */}
+        <Card>
+          <CardHeader><CardTitle>Biological Age</CardTitle></CardHeader>
+          {bioAge ? (
+            <div className="space-y-3">
+              <div className="flex items-end gap-3">
+                <span className="text-5xl font-bold text-gray-900">{bioAge.biologicalAge}</span>
+                <span className="text-lg text-gray-400 mb-1">yrs</span>
+              </div>
+              <p className="text-sm text-gray-500">vs {bioAge.chronologicalAge} chronological</p>
+              <div className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-sm font-medium ${
+                bioAge.deltaYears <= 0
+                  ? 'bg-vitality-50 text-vitality-700'
+                  : 'bg-rose-50 text-rose-600'
+              }`}>
+                <span>{bioAge.deltaYears <= 0 ? '↓' : '↑'}</span>
+                <span>
+                  {Math.abs(bioAge.deltaYears)} {Math.abs(bioAge.deltaYears) === 1 ? 'year' : 'years'}{' '}
+                  {bioAge.deltaYears <= 0 ? 'younger' : 'older'} than your age
+                </span>
+              </div>
+              <p className="text-xs text-gray-400">
+                Based on:{' '}
+                {[
+                  bioAge.breakdown.vo2max !== undefined && 'VO2 Max',
+                  bioAge.breakdown.hrv !== undefined && 'HRV',
+                  bioAge.breakdown.strength !== undefined && 'Strength',
+                ].filter(Boolean).join(' · ')}
+                {' '}· {bioAge.confidence} confidence
+              </p>
+            </div>
+          ) : (
+            <div className="text-center py-4">
+              <p className="text-sm text-gray-500">No fitness data yet.</p>
+              <Link href="/longevity" className="text-xs text-vitality-600 hover:text-vitality-700 mt-1 inline-block">
+                Log data in Longevity Hub to unlock →
+              </Link>
+            </div>
+          )}
+        </Card>
+
+        {/* Priority Focus */}
+        <Card>
+          <CardHeader><CardTitle>Priority Focus</CardTitle></CardHeader>
+          {longevityGap ? (
+            <div className="space-y-3">
+              <div className="flex items-center justify-between">
+                <span className="text-sm font-semibold text-gray-800">{longevityGap.pillarLabel}</span>
+                <span className="text-xs text-gray-400">score: {longevityGap.currentScore}/100</span>
+              </div>
+              <div className="h-1.5 bg-gray-100 rounded-full overflow-hidden">
+                <div
+                  className="h-full bg-rose-400 rounded-full"
+                  style={{ width: `${longevityGap.currentScore}%` }}
+                />
+              </div>
+              <p className="text-sm font-medium text-vitality-600">
+                Fix this → +{longevityGap.pointsGained} overall point{longevityGap.pointsGained !== 1 ? 's' : ''}
+              </p>
+              <p className="text-sm text-gray-600">{longevityGap.action}</p>
+              <Link
+                href={longevityGap.actionLink}
+                className="inline-flex items-center gap-1 text-xs text-vitality-600 hover:text-vitality-700 font-medium mt-1"
+              >
+                Take action <ArrowRight className="w-3 h-3" />
+              </Link>
+            </div>
+          ) : (
+            <div className="text-center py-4">
+              <p className="text-2xl mb-1">🎯</p>
+              <p className="text-sm font-semibold text-gray-800">You&apos;re crushing it</p>
+              <p className="text-xs text-gray-500 mt-1">All pillars are strong — keep it up</p>
+            </div>
+          )}
         </Card>
       </div>
 

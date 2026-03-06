@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import {
-  LayoutDashboard, Calendar, Zap, Clock, TrendingUp, Heart, Dumbbell, Sparkles, LogOut
+  LayoutDashboard, Calendar, Zap, Clock, TrendingUp, Heart, Dumbbell, Sparkles, LogOut, Layers
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useAuth } from '@/lib/supabase/AuthContext';
@@ -12,6 +12,7 @@ const NAV_ITEMS = [
   { href: '/dashboard',  icon: LayoutDashboard, label: 'Dashboard'     },
   { href: '/planner',    icon: Calendar,         label: 'Planner'       },
   { href: '/log',        icon: Zap,              label: 'Log Workout'   },
+  { href: '/movements',  icon: Layers,           label: 'Movements'     },
   { href: '/history',    icon: Clock,            label: 'History'       },
   { href: '/progress',   icon: TrendingUp,       label: 'Progress'      },
   { href: '/longevity',  icon: Heart,            label: 'Longevity Hub' },

@@ -23,21 +23,26 @@ export default function LoginPage() {
     setLoading(true);
     setError('');
 
-    const supabase = createClient();
-    if (mode === 'signup') {
-      const { error } = await supabase.auth.signUp({
-        email,
-        password,
-        options: { data: { name } },
-      });
-      if (error) setError(error.message);
-      else setSignupSuccess(true);
-    } else {
-      const { error } = await supabase.auth.signInWithPassword({ email, password });
-      if (error) setError(error.message);
-      else router.push('/dashboard');
+    try {
+      const supabase = createClient();
+      if (mode === 'signup') {
+        const { error } = await supabase.auth.signUp({
+          email,
+          password,
+          options: { data: { name } },
+        });
+        if (error) setError(error.message);
+        else setSignupSuccess(true);
+      } else {
+        const { error } = await supabase.auth.signInWithPassword({ email, password });
+        if (error) setError(error.message);
+        else router.push('/dashboard');
+      }
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Configuration error. Check environment variables.');
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   }
 
   async function handleGoogle() {

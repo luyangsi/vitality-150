@@ -24,22 +24,22 @@ export function Sidebar() {
   const { signOut } = useAuth();
 
   return (
-    <aside className="fixed left-0 top-0 h-screen w-64 bg-slate-900 border-r border-slate-800 flex flex-col z-40">
+    <aside className="fixed left-0 top-0 h-screen w-60 bg-white border-r border-gray-200 flex flex-col z-40">
       {/* Logo */}
-      <div className="p-6 border-b border-slate-800">
-        <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-lg bg-gradient-vitality flex items-center justify-center shadow-vitality">
-            <Dumbbell className="w-5 h-5 text-slate-950" />
+      <div className="h-16 px-5 flex items-center border-b border-gray-100">
+        <div className="flex items-center gap-2.5">
+          <div className="w-8 h-8 rounded-lg bg-vitality-500 flex items-center justify-center">
+            <Dumbbell className="w-4 h-4 text-white" />
           </div>
           <div>
-            <div className="font-bold text-slate-100 text-sm leading-none">VITALITY</div>
-            <div className="text-vitality-500 text-xs font-mono font-medium leading-none mt-1">150</div>
+            <div className="font-bold text-gray-900 text-sm leading-none tracking-wide">VITALITY</div>
+            <div className="text-vitality-600 text-xs font-mono font-semibold leading-none mt-0.5">150</div>
           </div>
         </div>
       </div>
 
       {/* Nav */}
-      <nav className="flex-1 p-4 space-y-1">
+      <nav className="flex-1 px-3 py-4 space-y-0.5">
         {NAV_ITEMS.map(({ href, icon: Icon, label }) => {
           const active = pathname === href || pathname.startsWith(href + '/');
           const isCoach = href === '/coach';
@@ -48,18 +48,16 @@ export function Sidebar() {
               key={href}
               href={href}
               className={cn(
-                'flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-200',
+                'flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-150',
                 active
-                  ? 'bg-vitality-500/10 text-vitality-500 border border-vitality-500/20 shadow-vitality'
-                  : isCoach
-                  ? 'text-vitality-500/70 hover:text-vitality-400 hover:bg-vitality-500/5 border border-vitality-500/10'
-                  : 'text-slate-400 hover:text-slate-100 hover:bg-slate-800'
+                  ? 'bg-vitality-50 text-vitality-700'
+                  : 'text-gray-500 hover:text-gray-900 hover:bg-gray-50'
               )}
             >
-              <Icon className={cn('w-4 h-4 flex-shrink-0', active || isCoach ? 'text-vitality-500' : '')} />
+              <Icon className={cn('w-4 h-4 flex-shrink-0', active ? 'text-vitality-600' : 'text-gray-400')} />
               {label}
               {isCoach && !active && (
-                <span className="ml-auto text-[10px] bg-vitality-500/15 text-vitality-500 px-1.5 py-0.5 rounded font-mono">AI</span>
+                <span className="ml-auto text-[10px] bg-vitality-100 text-vitality-700 px-1.5 py-0.5 rounded font-medium">AI</span>
               )}
             </Link>
           );
@@ -67,11 +65,11 @@ export function Sidebar() {
       </nav>
 
       {/* Footer */}
-      <div className="p-4 border-t border-slate-800 space-y-2">
-        <p className="text-xs text-slate-600 text-center">Train for 150 years of life</p>
+      <div className="px-3 py-4 border-t border-gray-100">
+        <p className="text-xs text-gray-400 mb-2 px-3">Train for 150 years of life</p>
         <button
           onClick={() => signOut().then(() => router.push('/login'))}
-          className="flex items-center gap-2 text-xs text-slate-500 hover:text-rose-400 transition-colors w-full justify-center py-1"
+          className="flex items-center gap-2 text-xs text-gray-400 hover:text-red-500 transition-colors w-full px-3 py-1.5 rounded-lg hover:bg-red-50"
         >
           <LogOut className="w-3.5 h-3.5" />
           Sign out

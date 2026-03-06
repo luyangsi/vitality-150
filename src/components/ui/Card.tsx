@@ -13,11 +13,11 @@ export function Card({ children, className, glow, onClick }: CardProps) {
     <div
       onClick={onClick}
       className={cn(
-        'bg-slate-800 border rounded-xl p-4',
+        'bg-white rounded-xl p-4 shadow-card',
         glow
-          ? 'border-vitality-500/20 shadow-vitality'
-          : 'border-slate-700',
-        onClick && 'cursor-pointer hover:border-vitality-500/30 transition-colors',
+          ? 'border border-vitality-200'
+          : 'border border-gray-200',
+        onClick && 'cursor-pointer hover:border-vitality-300 hover:shadow-card-md transition-all',
         className
       )}
     >
@@ -31,5 +31,5 @@ export function CardHeader({ children, className }: { children: ReactNode; class
 }
 
 export function CardTitle({ children, className }: { children: ReactNode; className?: string }) {
-  return <h3 className={cn('text-sm font-semibold text-slate-300 uppercase tracking-wider', className)}>{children}</h3>;
+  return <h3 className={cn('text-sm font-semibold text-gray-600', className)}>{children}</h3>;
 }

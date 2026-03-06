@@ -20,11 +20,11 @@ type Range = '1M' | '3M' | '6M' | '1Y' | 'All';
 const RANGE_DAYS: Record<Range, number> = { '1M': 30, '3M': 90, '6M': 180, '1Y': 365, 'All': 9999 };
 
 const CUSTOM_TOOLTIP_STYLE = {
-  backgroundColor: '#1e293b',
-  border: '1px solid #334155',
+  backgroundColor: '#FFFFFF',
+  border: '1px solid #E5E7EB',
   borderRadius: '8px',
   fontSize: '12px',
-  color: '#e2e8f0',
+  color: '#1F2937',
 };
 
 export default function ProgressPage() {
@@ -129,15 +129,15 @@ export default function ProgressPage() {
   return (
     <div className="max-w-6xl mx-auto space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-slate-100">Progress</h1>
+        <h1 className="text-2xl font-bold text-gray-900">Progress</h1>
         {/* Range selector */}
-        <div className="flex gap-1 bg-slate-800 border border-slate-700 rounded-lg p-1">
+        <div className="flex gap-1 bg-gray-100 border border-gray-200 rounded-lg p-1">
           {(['1M','3M','6M','1Y','All'] as Range[]).map(r => (
             <button
               key={r}
               onClick={() => setRange(r)}
               className={`px-3 py-1 text-xs rounded-md font-medium transition-colors ${
-                range === r ? 'bg-vitality-500 text-slate-950' : 'text-slate-400 hover:text-slate-200'
+                range === r ? 'bg-vitality-500 text-slate-950' : 'text-slate-400 hover:text-gray-800'
               }`}
             >
               {r}
@@ -159,9 +159,9 @@ export default function ProgressPage() {
         <CardHeader><CardTitle>Weekly Volume by Muscle Group</CardTitle></CardHeader>
         <ResponsiveContainer width="100%" height={260}>
           <BarChart data={weeklyVolume} margin={{ top: 5, right: 10, left: -20, bottom: 5 }}>
-            <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
-            <XAxis dataKey="week" tick={{ fill: '#64748b', fontSize: 11 }} />
-            <YAxis tick={{ fill: '#64748b', fontSize: 11 }} />
+            <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" />
+            <XAxis dataKey="week" tick={{ fill: '#9CA3AF', fontSize: 11 }} />
+            <YAxis tick={{ fill: '#9CA3AF', fontSize: 11 }} />
             <Tooltip contentStyle={CUSTOM_TOOLTIP_STYLE} />
             {Object.keys(MUSCLE_GROUP_COLORS).map(mg => (
               <Bar key={mg} dataKey={mg} stackId="a" fill={MUSCLE_GROUP_COLORS[mg as MuscleGroup]} maxBarSize={40} />
@@ -177,7 +177,7 @@ export default function ProgressPage() {
           <select
             value={selectedExerciseId}
             onChange={e => setSelectedExerciseId(e.target.value)}
-            className="bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-slate-300 focus:outline-none focus:border-vitality-500"
+            className="bg-white border border-gray-200 rounded-lg px-3 py-1.5 text-xs text-gray-700 focus:outline-none focus:border-vitality-500"
           >
             <option value="">Select exercise...</option>
             {loggedExercises.map(ex => (
@@ -188,15 +188,15 @@ export default function ProgressPage() {
         {strengthTrend.length > 0 ? (
           <ResponsiveContainer width="100%" height={240}>
             <LineChart data={strengthTrend} margin={{ top: 5, right: 10, left: -20, bottom: 5 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
-              <XAxis dataKey="date" tick={{ fill: '#64748b', fontSize: 11 }} />
-              <YAxis tick={{ fill: '#64748b', fontSize: 11 }} />
+              <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" />
+              <XAxis dataKey="date" tick={{ fill: '#9CA3AF', fontSize: 11 }} />
+              <YAxis tick={{ fill: '#9CA3AF', fontSize: 11 }} />
               <Tooltip contentStyle={CUSTOM_TOOLTIP_STYLE} />
-              <Line type="monotone" dataKey="1RM (kg)" stroke="#00d4aa" strokeWidth={2} dot={{ r: 3, fill: '#00d4aa' }} activeDot={{ r: 5 }} />
+              <Line type="monotone" dataKey="1RM (kg)" stroke="#22C55E" strokeWidth={2} dot={{ r: 3, fill: '#00d4aa' }} activeDot={{ r: 5 }} />
             </LineChart>
           </ResponsiveContainer>
         ) : (
-          <div className="h-48 flex items-center justify-center text-slate-500 text-sm">
+          <div className="h-48 flex items-center justify-center text-gray-400 text-sm">
             {selectedExerciseId ? 'Not enough data for this exercise' : 'Select an exercise to see strength trend'}
           </div>
         )}
@@ -221,14 +221,14 @@ export default function ProgressPage() {
                 {muscleDistribution.slice(0, 6).map(m => (
                   <div key={m.name} className="flex items-center gap-2">
                     <span className="w-2 h-2 rounded-full flex-shrink-0" style={{ backgroundColor: m.color }} />
-                    <span className="text-xs text-slate-400 capitalize flex-1">{m.name.replace('_', ' ')}</span>
-                    <span className="text-xs font-mono text-slate-300">{(m.value / 1000).toFixed(1)}k</span>
+                    <span className="text-xs text-gray-500 capitalize flex-1">{m.name.replace('_', ' ')}</span>
+                    <span className="text-xs font-mono text-gray-700">{(m.value / 1000).toFixed(1)}k</span>
                   </div>
                 ))}
               </div>
             </div>
           ) : (
-            <div className="h-40 flex items-center justify-center text-slate-500 text-sm">Log workouts to see distribution</div>
+            <div className="h-40 flex items-center justify-center text-gray-400 text-sm">Log workouts to see distribution</div>
           )}
         </Card>
 
@@ -237,18 +237,18 @@ export default function ProgressPage() {
           <CardHeader><CardTitle><Trophy className="w-4 h-4 inline mr-1 text-amber-400" />Recent PRs</CardTitle></CardHeader>
           <div className="space-y-2 max-h-48 overflow-y-auto">
             {prTimeline.length > 0 ? prTimeline.map((pr, idx) => (
-              <div key={idx} className="flex items-center justify-between bg-amber-500/5 border border-amber-500/10 rounded-lg px-3 py-2">
+              <div key={idx} className="flex items-center justify-between bg-amber-50 border border-amber-100 rounded-lg px-3 py-2">
                 <div>
-                  <p className="text-xs font-medium text-slate-200">{pr.exercise}</p>
-                  <p className="text-xs text-slate-500">{formatDate(pr.date, 'MMM d, yyyy')}</p>
+                  <p className="text-xs font-medium text-gray-800">{pr.exercise}</p>
+                  <p className="text-xs text-gray-500">{formatDate(pr.date, 'MMM d, yyyy')}</p>
                 </div>
                 <div className="text-right">
                   <p className="text-xs font-mono text-amber-400">{pr.weight}kg × {pr.reps}</p>
-                  <p className="text-xs text-slate-500">={Math.round(estimatedOneRepMax(pr.weight, pr.reps))}kg est.</p>
+                  <p className="text-xs text-gray-500">={Math.round(estimatedOneRepMax(pr.weight, pr.reps))}kg est.</p>
                 </div>
               </div>
             )) : (
-              <p className="text-slate-500 text-sm text-center py-4">No PRs yet. Keep lifting!</p>
+              <p className="text-gray-400 text-sm text-center py-4">No PRs yet. Keep lifting!</p>
             )}
           </div>
         </Card>

@@ -152,11 +152,11 @@ export default function CoachPage() {
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
         <div>
-          <h1 className="text-2xl font-bold text-slate-100 flex items-center gap-2">
+          <h1 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
             <Sparkles className="w-6 h-6 text-vitality-500" />
             AI Coach
           </h1>
-          <p className="text-slate-400 text-sm mt-0.5">
+          <p className="text-gray-500 text-sm mt-0.5">
             Personalized advice based on your data · Powered by Claude
           </p>
         </div>
@@ -175,9 +175,9 @@ export default function CoachPage() {
           { label: 'Streak', value: `${currentStreak}d` },
           { label: 'Age', value: `${age}yo` },
         ].map(item => (
-          <span key={item.label} className="text-xs bg-slate-800 border border-slate-700 rounded-full px-3 py-1 text-slate-400">
-            <span className="text-slate-500">{item.label}: </span>
-            <span className="text-vitality-500 font-mono font-medium">{item.value}</span>
+          <span key={item.label} className="text-xs bg-gray-100 border border-gray-200 rounded-full px-3 py-1 text-gray-500">
+            <span className="text-gray-500">{item.label}: </span>
+            <span className="text-vitality-600 font-mono font-medium">{item.value}</span>
           </span>
         ))}
       </div>
@@ -187,11 +187,11 @@ export default function CoachPage() {
         {messages.length === 0 ? (
           <div className="h-full flex flex-col items-center justify-center gap-6">
             <div className="text-center">
-              <div className="w-16 h-16 rounded-2xl bg-vitality-500/10 border border-vitality-500/20 flex items-center justify-center mx-auto mb-4 shadow-vitality">
+              <div className="w-16 h-16 rounded-2xl bg-vitality-50 border border-vitality-200 flex items-center justify-center mx-auto mb-4">
                 <Bot className="w-8 h-8 text-vitality-500" />
               </div>
-              <h2 className="text-lg font-semibold text-slate-200">Your Longevity Coach</h2>
-              <p className="text-slate-400 text-sm mt-1 max-w-sm">
+              <h2 className="text-lg font-semibold text-gray-800">Your Longevity Coach</h2>
+              <p className="text-gray-500 text-sm mt-1 max-w-sm">
                 Ask anything about your training, recovery, or longevity goals. I have full access to your data.
               </p>
             </div>
@@ -202,7 +202,7 @@ export default function CoachPage() {
                 <button
                   key={prompt}
                   onClick={() => sendMessage(prompt)}
-                  className="text-left text-sm text-slate-300 bg-slate-800 hover:bg-slate-700 border border-slate-700 hover:border-vitality-500/30 rounded-xl px-4 py-3 transition-all"
+                  className="text-left text-sm text-gray-700 bg-gray-50 hover:bg-gray-100 border border-gray-200 hover:border-vitality-300 rounded-xl px-4 py-3 transition-all"
                 >
                   {prompt}
                 </button>
@@ -216,15 +216,15 @@ export default function CoachPage() {
               className={cn('flex gap-3', msg.role === 'user' ? 'justify-end' : 'justify-start')}
             >
               {msg.role === 'assistant' && (
-                <div className="w-8 h-8 rounded-lg bg-vitality-500/10 border border-vitality-500/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <div className="w-8 h-8 rounded-lg bg-vitality-50 border border-vitality-200 flex items-center justify-center flex-shrink-0 mt-0.5">
                   <Bot className="w-4 h-4 text-vitality-500" />
                 </div>
               )}
               <div className={cn(
                 'max-w-[85%] rounded-2xl px-4 py-3 text-sm leading-relaxed',
                 msg.role === 'user'
-                  ? 'bg-vitality-500/15 border border-vitality-500/20 text-slate-100'
-                  : 'bg-slate-800 border border-slate-700 text-slate-200'
+                  ? 'bg-vitality-50 border border-vitality-200 text-gray-900'
+                  : 'bg-gray-50 border border-gray-200 text-gray-800'
               )}>
                 {msg.content
                   ? msg.content.split('\n').map((line, i) => (
@@ -233,12 +233,12 @@ export default function CoachPage() {
                       {i < msg.content.split('\n').length - 1 && <br />}
                     </span>
                   ))
-                  : <span className="text-slate-500 animate-pulse">Thinking...</span>
+                  : <span className="text-gray-400 animate-pulse">Thinking...</span>
                 }
               </div>
               {msg.role === 'user' && (
-                <div className="w-8 h-8 rounded-lg bg-slate-700 flex items-center justify-center flex-shrink-0 mt-0.5">
-                  <User className="w-4 h-4 text-slate-300" />
+                <div className="w-8 h-8 rounded-lg bg-gray-100 flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <User className="w-4 h-4 text-gray-700" />
                 </div>
               )}
             </div>
@@ -248,7 +248,7 @@ export default function CoachPage() {
       </div>
 
       {/* Input */}
-      <div className="mt-4 flex gap-2 items-end bg-slate-800 border border-slate-700 rounded-2xl p-3 focus-within:border-vitality-500/40 transition-colors">
+      <div className="mt-4 flex gap-2 items-end bg-white border border-gray-200 rounded-2xl p-3 focus-within:border-vitality-400 transition-colors shadow-card">
         <textarea
           ref={inputRef}
           value={input}
@@ -256,7 +256,7 @@ export default function CoachPage() {
           onKeyDown={handleKeyDown}
           placeholder="Ask your coach anything..."
           rows={1}
-          className="flex-1 bg-transparent text-sm text-slate-100 placeholder-slate-500 resize-none focus:outline-none max-h-32"
+          className="flex-1 bg-transparent text-sm text-gray-900 placeholder-gray-400 resize-none focus:outline-none max-h-32"
           style={{ fieldSizing: 'content' } as React.CSSProperties}
         />
         <Button
@@ -268,7 +268,7 @@ export default function CoachPage() {
           <Send className="w-3.5 h-3.5" />
         </Button>
       </div>
-      <p className="text-xs text-slate-600 text-center mt-2">Enter to send · Shift+Enter for new line</p>
+      <p className="text-xs text-gray-400 text-center mt-2">Enter to send · Shift+Enter for new line</p>
     </div>
   );
 }

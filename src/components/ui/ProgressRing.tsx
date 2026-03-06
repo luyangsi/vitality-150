@@ -12,8 +12,8 @@ export function ProgressRing({
   value,
   size = 160,
   strokeWidth = 10,
-  color = '#00d4aa',
-  bgColor = '#1e293b',
+  color = '#22C55E',
+  bgColor = '#E5E7EB',
   label,
   sublabel,
 }: ProgressRingProps) {
@@ -26,9 +26,7 @@ export function ProgressRing({
   return (
     <div className="relative inline-flex items-center justify-center" style={{ width: size, height: size }}>
       <svg width={size} height={size} className="-rotate-90">
-        {/* Background ring */}
         <circle cx={cx} cy={cx} r={radius} fill="none" stroke={bgColor} strokeWidth={strokeWidth} />
-        {/* Progress ring */}
         <circle
           cx={cx} cy={cx} r={radius}
           fill="none"
@@ -37,18 +35,17 @@ export function ProgressRing({
           strokeDasharray={circumference}
           strokeDashoffset={offset}
           strokeLinecap="round"
-          style={{ transition: 'stroke-dashoffset 0.6s ease-out', filter: `drop-shadow(0 0 6px ${color}66)` }}
+          style={{ transition: 'stroke-dashoffset 0.6s ease-out' }}
         />
       </svg>
-      {/* Center text */}
       <div className="absolute inset-0 flex flex-col items-center justify-center">
         {label && (
-          <span className="font-mono font-bold text-slate-100" style={{ fontSize: size * 0.18 }}>
+          <span className="font-mono font-bold text-gray-900" style={{ fontSize: size * 0.18 }}>
             {label}
           </span>
         )}
         {sublabel && (
-          <span className="text-slate-400" style={{ fontSize: size * 0.09 }}>
+          <span className="text-gray-400" style={{ fontSize: size * 0.09 }}>
             {sublabel}
           </span>
         )}

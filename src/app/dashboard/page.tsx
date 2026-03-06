@@ -83,10 +83,10 @@ export default function DashboardPage() {
     <div className="max-w-6xl mx-auto space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-slate-100">
+          <h1 className="text-2xl font-bold text-gray-900">
             {profile.name ? `Hey, ${profile.name}` : 'Dashboard'}
           </h1>
-          <p className="text-slate-400 text-sm mt-1">Your longevity command center</p>
+          <p className="text-gray-500 text-sm mt-1">Your longevity command center</p>
         </div>
         {!profile.onboardingComplete && (
           <Link href="/longevity">
@@ -98,7 +98,7 @@ export default function DashboardPage() {
       {/* Hero: Longevity Score + Pillar breakdown */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <Card glow className="flex flex-col items-center justify-center py-6">
-          <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-4">Longevity Score</p>
+          <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-4">Longevity Score</p>
           <ProgressRing
             value={score.overall}
             size={180}
@@ -108,7 +108,7 @@ export default function DashboardPage() {
           />
           <div className="mt-4 flex items-center gap-2">
             <span className={`text-xs font-medium ${
-              score.trend === 'improving' ? 'text-vitality-500' :
+              score.trend === 'improving' ? 'text-vitality-600' :
               score.trend === 'declining' ? 'text-rose-400' : 'text-slate-400'
             }`}>
               {score.trend === 'improving' ? '↑ Improving' : score.trend === 'declining' ? '↓ Declining' : '→ Stable'}
@@ -129,9 +129,9 @@ export default function DashboardPage() {
                 </div>
                 <div className="flex items-end gap-1">
                   <span className="font-mono text-xl font-bold" style={{ color: cfg.color }}>{val}</span>
-                  <span className="text-slate-500 text-xs mb-0.5">/100</span>
+                  <span className="text-gray-400 text-xs mb-0.5">/100</span>
                 </div>
-                <div className="mt-2 h-1 bg-slate-700 rounded-full overflow-hidden">
+                <div className="mt-2 h-1 bg-gray-200 rounded-full overflow-hidden">
                   <div className="h-full rounded-full transition-all" style={{ width: `${val}%`, backgroundColor: cfg.color }} />
                 </div>
               </div>
@@ -154,15 +154,15 @@ export default function DashboardPage() {
           <CardHeader><CardTitle>Readiness</CardTitle></CardHeader>
           <div className="flex items-center gap-4">
             <div className={`w-3 h-3 rounded-full flex-shrink-0 ${
-              readiness === 'green' ? 'bg-green-400 shadow-[0_0_8px_rgba(74,222,128,0.6)]' :
-              readiness === 'amber' ? 'bg-amber-400 shadow-[0_0_8px_rgba(251,191,36,0.6)]' :
-              readiness === 'red'   ? 'bg-rose-400 shadow-[0_0_8px_rgba(251,113,133,0.6)]' :
+              readiness === 'green' ? 'bg-green-500' :
+              readiness === 'amber' ? 'bg-amber-500' :
+              readiness === 'red'   ? 'bg-rose-500' :
               'bg-slate-600'
             }`} />
             <div>
-              <p className="font-semibold text-slate-200">{readinessLabel}</p>
-              {latestHRV && <p className="text-xs text-slate-500 mt-0.5">HRV: {latestHRV}ms · Sleep: {todayLog?.sleepHours ?? '–'}h</p>}
-              {!latestHRV && <p className="text-xs text-slate-500 mt-0.5">Log your HRV in <Link href="/longevity" className="text-vitality-500">Longevity Hub</Link></p>}
+              <p className="font-semibold text-gray-800">{readinessLabel}</p>
+              {latestHRV && <p className="text-xs text-gray-500 mt-0.5">HRV: {latestHRV}ms · Sleep: {todayLog?.sleepHours ?? '–'}h</p>}
+              {!latestHRV && <p className="text-xs text-gray-500 mt-0.5">Log your HRV in <Link href="/longevity" className="text-vitality-600">Longevity Hub</Link></p>}
             </div>
           </div>
         </Card>
@@ -171,16 +171,16 @@ export default function DashboardPage() {
         <Card>
           <CardHeader>
             <CardTitle>Zone 2 This Week</CardTitle>
-            <span className="text-xs text-slate-500">{weeklyZone2}/{profile.zone2WeeklyTargetMinutes} min</span>
+            <span className="text-xs text-gray-500">{weeklyZone2}/{profile.zone2WeeklyTargetMinutes} min</span>
           </CardHeader>
           <div className="space-y-2">
-            <div className="h-3 bg-slate-700 rounded-full overflow-hidden">
+            <div className="h-3 bg-gray-200 rounded-full overflow-hidden">
               <div
-                className="h-full bg-gradient-to-r from-cyan-500 to-vitality-500 rounded-full transition-all duration-500"
+                className="h-full bg-vitality-500 rounded-full transition-all duration-500"
                 style={{ width: `${zone2Pct}%` }}
               />
             </div>
-            <div className="flex justify-between text-xs text-slate-500">
+            <div className="flex justify-between text-xs text-gray-500">
               <span>{zone2Pct}% of weekly goal</span>
               <span>{formatDuration(Math.max(0, profile.zone2WeeklyTargetMinutes - weeklyZone2))} remaining</span>
             </div>
@@ -191,13 +191,13 @@ export default function DashboardPage() {
       {/* Today's workout */}
       <Card>
         <CardHeader>
-          <CardTitle><Zap className="w-4 h-4 inline mr-1 text-vitality-500" />Today&apos;s Plan</CardTitle>
-          <Link href="/log" className="text-xs text-vitality-500 hover:text-vitality-400">View all →</Link>
+          <CardTitle><Zap className="w-4 h-4 inline mr-1 text-vitality-600" />Today&apos;s Plan</CardTitle>
+          <Link href="/log" className="text-xs text-vitality-600 hover:text-vitality-400">View all →</Link>
         </CardHeader>
         {activeSession ? (
-          <div className="bg-amber-500/10 border border-amber-500/20 rounded-lg p-3 flex items-center justify-between">
+          <div className="bg-amber-50 border border-amber-200 rounded-lg p-3 flex items-center justify-between">
             <div>
-              <p className="text-sm font-semibold text-amber-400">In Progress: {activeSession.name}</p>
+              <p className="text-sm font-semibold text-amber-600">In Progress: {activeSession.name}</p>
               <p className="text-xs text-slate-400 mt-0.5">{activeSession.exercises.length} exercises logged</p>
             </div>
             <Link href={`/log/${activeSession.id}`}>
@@ -207,10 +207,10 @@ export default function DashboardPage() {
         ) : todayTemplates.length > 0 ? (
           <div className="space-y-2">
             {todayTemplates.map(t => (
-              <div key={t.id} className="flex items-center justify-between bg-slate-900 rounded-lg p-3">
+              <div key={t.id} className="flex items-center justify-between bg-gray-50 rounded-lg p-3">
                 <div>
-                  <p className="text-sm font-medium text-slate-200">{t.name}</p>
-                  <p className="text-xs text-slate-500">{t.estimatedDurationMinutes}min · {t.exercises.length} exercises</p>
+                  <p className="text-sm font-medium text-gray-800">{t.name}</p>
+                  <p className="text-xs text-gray-500">{t.estimatedDurationMinutes}min · {t.exercises.length} exercises</p>
                 </div>
                 <Button size="sm" onClick={() => handleStartWorkout(t.name, t.id)}>
                   <Zap className="w-3.5 h-3.5" /> Start
@@ -220,7 +220,7 @@ export default function DashboardPage() {
           </div>
         ) : (
           <div className="text-center py-6">
-            <p className="text-slate-500 text-sm">Nothing planned for today.</p>
+            <p className="text-gray-500 text-sm">Nothing planned for today.</p>
             <div className="flex gap-2 justify-center mt-3">
               <Link href="/planner"><Button variant="secondary" size="sm">Open Planner</Button></Link>
               <Link href="/log"><Button size="sm">Quick Start</Button></Link>

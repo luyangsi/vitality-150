@@ -40,8 +40,8 @@ export default function HistoryPage() {
   return (
     <div className="max-w-5xl mx-auto">
       <div className="mb-6">
-        <h1 className="text-2xl font-bold text-slate-100">History</h1>
-        <p className="text-slate-400 text-sm mt-1">{completedSessions.length} sessions logged</p>
+        <h1 className="text-2xl font-bold text-gray-900">History</h1>
+        <p className="text-gray-500 text-sm mt-1">{completedSessions.length} sessions logged</p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -51,12 +51,12 @@ export default function HistoryPage() {
             {/* Month nav */}
             <div className="flex items-center justify-between mb-4">
               <button onClick={() => setCurrentMonth(m => new Date(m.getFullYear(), m.getMonth() - 1))}
-                className="text-slate-400 hover:text-slate-100 transition-colors">
+                className="text-gray-400 hover:text-gray-700 transition-colors">
                 <ChevronLeft className="w-5 h-5" />
               </button>
-              <h2 className="font-semibold text-slate-100">{format(currentMonth, 'MMMM yyyy')}</h2>
+              <h2 className="font-semibold text-gray-900">{format(currentMonth, 'MMMM yyyy')}</h2>
               <button onClick={() => setCurrentMonth(m => new Date(m.getFullYear(), m.getMonth() + 1))}
-                className="text-slate-400 hover:text-slate-100 transition-colors">
+                className="text-gray-400 hover:text-gray-700 transition-colors">
                 <ChevronRight className="w-5 h-5" />
               </button>
             </div>
@@ -64,7 +64,7 @@ export default function HistoryPage() {
             {/* Day headers */}
             <div className="grid grid-cols-7 mb-2">
               {['Mon','Tue','Wed','Thu','Fri','Sat','Sun'].map(d => (
-                <div key={d} className="text-center text-xs text-slate-500 font-medium py-1">{d}</div>
+                <div key={d} className="text-center text-xs text-gray-500 font-medium py-1">{d}</div>
               ))}
             </div>
 
@@ -86,14 +86,14 @@ export default function HistoryPage() {
                       'relative aspect-square rounded-lg flex flex-col items-center justify-center text-sm transition-all',
                       !inMonth && 'opacity-30',
                       isSelected && 'bg-vitality-500/15 border border-vitality-500/40',
-                      !isSelected && daySessions.length > 0 && 'bg-slate-700/50 hover:bg-slate-700',
-                      !isSelected && daySessions.length === 0 && 'hover:bg-slate-800',
+                      !isSelected && daySessions.length > 0 && 'bg-vitality-50 hover:bg-vitality-100',
+                      !isSelected && daySessions.length === 0 && 'hover:bg-gray-50',
                       today && 'ring-1 ring-vitality-500/40'
                     )}
                   >
                     <span className={cn(
                       'text-xs font-medium',
-                      today ? 'text-vitality-400' : inMonth ? 'text-slate-300' : 'text-slate-600'
+                      today ? 'text-vitality-400' : inMonth ? 'text-gray-700' : 'text-slate-600'
                     )}>
                       {format(day, 'd')}
                     </span>
@@ -122,7 +122,7 @@ export default function HistoryPage() {
                 {selectedDate ? formatDate(selectedDate, 'MMM d') : 'Recent Sessions'}
               </CardTitle>
               {selectedDate && (
-                <button onClick={() => setSelectedDate(null)} className="text-slate-500 hover:text-slate-300">
+                <button onClick={() => setSelectedDate(null)} className="text-gray-500 hover:text-gray-700">
                   <X className="w-4 h-4" />
                 </button>
               )}
@@ -132,10 +132,10 @@ export default function HistoryPage() {
                 <button
                   key={s.id}
                   onClick={() => setSelectedSession(s)}
-                  className="w-full text-left bg-slate-900 hover:bg-slate-700 border border-slate-700 rounded-lg p-3 transition-colors group"
+                  className="w-full text-left bg-gray-50 hover:bg-gray-100 border border-gray-200 rounded-lg p-3 transition-colors group"
                 >
-                  <p className="text-sm font-medium text-slate-200 group-hover:text-vitality-400 truncate">{s.name}</p>
-                  <div className="flex items-center gap-3 mt-1 text-xs text-slate-500">
+                  <p className="text-sm font-medium text-gray-800 group-hover:text-vitality-400 truncate">{s.name}</p>
+                  <div className="flex items-center gap-3 mt-1 text-xs text-gray-500">
                     {!selectedDate && <span>{formatDate(s.date, 'MMM d')}</span>}
                     {s.durationMinutes && (
                       <span className="flex items-center gap-1"><Clock className="w-3 h-3" />{formatDuration(s.durationMinutes)}</span>
@@ -145,13 +145,13 @@ export default function HistoryPage() {
                       {s.exercises.flatMap(e => e.sets.filter(st => !st.isWarmup)).length} sets
                     </span>
                     {s.exercises.flatMap(e => e.sets).some(st => st.isPR) && (
-                      <Trophy className="w-3 h-3 text-amber-400" />
+                      <Trophy className="w-3 h-3 text-amber-600" />
                     )}
                   </div>
                 </button>
               ))}
               {(selectedDate ? selectedDateSessions : completedSessions).length === 0 && (
-                <p className="text-slate-500 text-sm text-center py-4">No sessions</p>
+                <p className="text-gray-500 text-sm text-center py-4">No sessions</p>
               )}
             </div>
           </Card>
@@ -162,7 +162,7 @@ export default function HistoryPage() {
       {selectedSession && (
         <Modal open={!!selectedSession} onClose={() => setSelectedSession(null)} title={selectedSession.name} size="lg">
           <div className="space-y-4">
-            <div className="flex items-center gap-4 text-sm text-slate-400">
+            <div className="flex items-center gap-4 text-sm text-gray-500">
               <span>{formatDate(selectedSession.date)}</span>
               {selectedSession.durationMinutes && <span>{formatDuration(selectedSession.durationMinutes)}</span>}
             </div>
@@ -170,13 +170,13 @@ export default function HistoryPage() {
             {/* PRs */}
             {selectedSession.exercises.flatMap(e => e.sets).some(s => s.isPR) && (
               <div className="bg-amber-500/10 border border-amber-500/20 rounded-lg p-3">
-                <p className="text-amber-400 text-xs font-semibold flex items-center gap-1">
+                <p className="text-amber-600 text-xs font-semibold flex items-center gap-1">
                   <Trophy className="w-3.5 h-3.5" /> Personal Records
                 </p>
                 <div className="mt-2 space-y-1">
                   {selectedSession.exercises.flatMap(e =>
                     e.sets.filter(s => s.isPR).map(s => (
-                      <p key={s.id} className="text-xs text-slate-300">
+                      <p key={s.id} className="text-xs text-gray-700">
                         {e.exerciseName}: {s.weight}kg × {s.reps}
                       </p>
                     ))
@@ -188,13 +188,13 @@ export default function HistoryPage() {
             {/* Exercise breakdown */}
             <div className="space-y-3">
               {selectedSession.exercises.map(ex => (
-                <div key={ex.id} className="bg-slate-900 rounded-lg p-3">
-                  <p className="text-sm font-medium text-slate-200 mb-2">{ex.exerciseName}</p>
-                  <div className="grid grid-cols-4 gap-2 text-xs text-slate-500 mb-1">
+                <div key={ex.id} className="bg-gray-50 rounded-lg p-3">
+                  <p className="text-sm font-medium text-gray-800 mb-2">{ex.exerciseName}</p>
+                  <div className="grid grid-cols-4 gap-2 text-xs text-gray-500 mb-1">
                     <span>Set</span><span>Weight</span><span>Reps</span><span>RPE</span>
                   </div>
                   {ex.sets.map((set, idx) => (
-                    <div key={set.id} className="grid grid-cols-4 gap-2 text-xs text-slate-300 py-0.5">
+                    <div key={set.id} className="grid grid-cols-4 gap-2 text-xs text-gray-700 py-0.5">
                       <span>{set.isWarmup ? 'W' : idx + 1}{set.isPR && ' 🏆'}</span>
                       <span>{set.weight}kg</span>
                       <span>{set.reps}</span>
@@ -206,9 +206,9 @@ export default function HistoryPage() {
             </div>
 
             {selectedSession.notes && (
-              <div className="bg-slate-900 rounded-lg p-3">
-                <p className="text-xs text-slate-400 mb-1">Notes</p>
-                <p className="text-sm text-slate-300">{selectedSession.notes}</p>
+              <div className="bg-gray-50 rounded-lg p-3">
+                <p className="text-xs text-gray-500 mb-1">Notes</p>
+                <p className="text-sm text-gray-700">{selectedSession.notes}</p>
               </div>
             )}
 

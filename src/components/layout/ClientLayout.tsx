@@ -16,7 +16,7 @@ export function ClientLayout({ children }: { children: ReactNode }) {
   return (
     <>
       <Sidebar />
-      <div className="ml-64 min-h-screen flex flex-col">
+      <div className="ml-60 min-h-screen flex flex-col bg-gray-50">
         <TopBar />
         <main className="flex-1 p-6 animate-fade-in">
           {children}

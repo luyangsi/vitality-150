@@ -33,8 +33,8 @@ export default function PlannerPage() {
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-2xl font-bold text-slate-100">Weekly Planner</h1>
-          <p className="text-slate-400 text-sm mt-1">
+          <h1 className="text-2xl font-bold text-gray-900">Weekly Planner</h1>
+          <p className="text-gray-500 text-sm mt-1">
             {formatDate(weekStart, 'MMM d')} – {formatDate(format(addDays(parseISO(weekStart), 6), 'yyyy-MM-dd'), 'MMM d, yyyy')}
           </p>
         </div>
@@ -71,14 +71,14 @@ export default function PlannerPage() {
       {/* Template library summary */}
       {templates.length > 0 && (
         <div className="mt-6">
-          <h2 className="text-sm font-semibold text-slate-400 uppercase tracking-wider mb-3">Template Library</h2>
+          <h2 className="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-3">Template Library</h2>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
             {templates.map(t => (
-              <div key={t.id} className="bg-slate-800 border border-slate-700 rounded-lg p-3">
-                <p className="text-sm font-medium text-slate-200 truncate">{t.name}</p>
-                <p className="text-xs text-slate-500 mt-1">{t.estimatedDurationMinutes}min · {t.exercises.length} exercises</p>
+              <div key={t.id} className="bg-gray-100 border border-gray-200 rounded-lg p-3">
+                <p className="text-sm font-medium text-gray-800 truncate">{t.name}</p>
+                <p className="text-xs text-gray-500 mt-1">{t.estimatedDurationMinutes}min · {t.exercises.length} exercises</p>
                 <div className="flex gap-2 mt-2">
-                  <button onClick={() => deleteTemplate(t.id)} className="text-xs text-rose-400 hover:text-rose-300">Delete</button>
+                  <button onClick={() => deleteTemplate(t.id)} className="text-xs text-red-500 hover:text-red-600">Delete</button>
                 </div>
               </div>
             ))}

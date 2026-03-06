@@ -54,30 +54,30 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-950 flex items-center justify-center p-4">
-      <div className="w-full max-w-md">
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
+      <div className="w-full max-w-sm">
         {/* Logo */}
         <div className="text-center mb-8">
-          <div className="w-14 h-14 rounded-2xl bg-gradient-vitality flex items-center justify-center mx-auto mb-4 shadow-vitality">
-            <Dumbbell className="w-7 h-7 text-slate-950" />
+          <div className="w-12 h-12 rounded-xl bg-vitality-500 flex items-center justify-center mx-auto mb-4">
+            <Dumbbell className="w-6 h-6 text-white" />
           </div>
-          <div className="font-bold text-slate-100 text-xl tracking-widest">VITALITY</div>
-          <div className="text-vitality-500 text-sm font-mono font-medium">150</div>
-          <p className="text-slate-500 text-xs mt-2">Train for 150 years of life</p>
+          <div className="font-bold text-gray-900 text-lg tracking-widest">VITALITY</div>
+          <div className="text-vitality-600 text-sm font-mono font-semibold">150</div>
+          <p className="text-gray-400 text-xs mt-1">Train for 150 years of life</p>
         </div>
 
         {/* Card */}
-        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6">
+        <div className="bg-white border border-gray-200 rounded-2xl p-6 shadow-card-md">
           {/* Mode toggle */}
-          <div className="flex gap-1 bg-slate-800 rounded-lg p-1 mb-6">
+          <div className="flex gap-1 bg-gray-100 rounded-lg p-1 mb-6">
             <button
               type="button"
               onClick={() => { setMode('signin'); setError(''); }}
               className={cn(
-                'flex-1 py-2 text-sm font-medium rounded-md transition-all',
+                'flex-1 py-1.5 text-sm font-medium rounded-md transition-all',
                 mode === 'signin'
-                  ? 'bg-vitality-500 text-slate-950'
-                  : 'text-slate-400 hover:text-slate-200'
+                  ? 'bg-white text-gray-900 shadow-sm'
+                  : 'text-gray-500 hover:text-gray-700'
               )}
             >
               Sign In
@@ -86,10 +86,10 @@ export default function LoginPage() {
               type="button"
               onClick={() => { setMode('signup'); setError(''); }}
               className={cn(
-                'flex-1 py-2 text-sm font-medium rounded-md transition-all',
+                'flex-1 py-1.5 text-sm font-medium rounded-md transition-all',
                 mode === 'signup'
-                  ? 'bg-vitality-500 text-slate-950'
-                  : 'text-slate-400 hover:text-slate-200'
+                  ? 'bg-white text-gray-900 shadow-sm'
+                  : 'text-gray-500 hover:text-gray-700'
               )}
             >
               Create Account
@@ -98,14 +98,14 @@ export default function LoginPage() {
 
           {signupSuccess ? (
             <div className="text-center py-6">
-              <CheckCircle className="w-12 h-12 text-vitality-500 mx-auto mb-3" />
-              <h3 className="text-slate-100 font-semibold">Check your email</h3>
-              <p className="text-slate-400 text-sm mt-1">
-                We sent a confirmation link to <span className="text-vitality-500">{email}</span>
+              <CheckCircle className="w-10 h-10 text-vitality-500 mx-auto mb-3" />
+              <h3 className="text-gray-900 font-semibold">Check your email</h3>
+              <p className="text-gray-500 text-sm mt-1">
+                We sent a confirmation link to <span className="text-vitality-600 font-medium">{email}</span>
               </p>
               <button
                 onClick={() => { setSignupSuccess(false); setMode('signin'); }}
-                className="text-vitality-500 text-sm mt-4 hover:underline"
+                className="text-vitality-600 text-sm mt-4 hover:underline"
               >
                 Back to sign in
               </button>
@@ -114,29 +114,29 @@ export default function LoginPage() {
             <form onSubmit={handleEmailAuth} className="space-y-4">
               {mode === 'signup' && (
                 <div>
-                  <label className="text-xs text-slate-400 uppercase tracking-wider">Name</label>
+                  <label className="text-xs font-medium text-gray-500 uppercase tracking-wider">Name</label>
                   <input
                     type="text"
                     value={name}
                     onChange={e => setName(e.target.value)}
                     placeholder="Your name"
-                    className="mt-1 w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2.5 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-vitality-500 transition-colors"
+                    className="mt-1 w-full bg-white border border-gray-200 rounded-lg px-3 py-2.5 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-vitality-500 focus:ring-1 focus:ring-vitality-500/20 transition-colors"
                   />
                 </div>
               )}
               <div>
-                <label className="text-xs text-slate-400 uppercase tracking-wider">Email</label>
+                <label className="text-xs font-medium text-gray-500 uppercase tracking-wider">Email</label>
                 <input
                   type="email"
                   value={email}
                   onChange={e => setEmail(e.target.value)}
                   placeholder="you@example.com"
                   required
-                  className="mt-1 w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2.5 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-vitality-500 transition-colors"
+                  className="mt-1 w-full bg-white border border-gray-200 rounded-lg px-3 py-2.5 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-vitality-500 focus:ring-1 focus:ring-vitality-500/20 transition-colors"
                 />
               </div>
               <div>
-                <label className="text-xs text-slate-400 uppercase tracking-wider">Password</label>
+                <label className="text-xs font-medium text-gray-500 uppercase tracking-wider">Password</label>
                 <div className="relative mt-1">
                   <input
                     type={showPassword ? 'text' : 'password'}
@@ -145,24 +145,24 @@ export default function LoginPage() {
                     placeholder="••••••••"
                     required
                     minLength={6}
-                    className="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2.5 pr-10 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-vitality-500 transition-colors"
+                    className="w-full bg-white border border-gray-200 rounded-lg px-3 py-2.5 pr-10 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-vitality-500 focus:ring-1 focus:ring-vitality-500/20 transition-colors"
                   />
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-300"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
                   >
                     {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                   </button>
                 </div>
               </div>
 
-              {error && <p className="text-rose-400 text-sm">{error}</p>}
+              {error && <p className="text-red-500 text-sm">{error}</p>}
 
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full bg-vitality-500 hover:bg-vitality-400 disabled:opacity-50 disabled:cursor-not-allowed text-slate-950 font-semibold py-2.5 rounded-lg transition-colors text-sm"
+                className="w-full bg-vitality-500 hover:bg-vitality-600 disabled:opacity-50 disabled:cursor-not-allowed text-white font-semibold py-2.5 rounded-lg transition-colors text-sm"
               >
                 {loading ? 'Loading...' : mode === 'signin' ? 'Sign In' : 'Create Account'}
               </button>
@@ -172,14 +172,14 @@ export default function LoginPage() {
           {!signupSuccess && (
             <>
               <div className="flex items-center gap-3 my-4">
-                <div className="flex-1 border-t border-slate-700" />
-                <span className="text-xs text-slate-500">or</span>
-                <div className="flex-1 border-t border-slate-700" />
+                <div className="flex-1 border-t border-gray-100" />
+                <span className="text-xs text-gray-400">or</span>
+                <div className="flex-1 border-t border-gray-100" />
               </div>
               <button
                 type="button"
                 onClick={handleGoogle}
-                className="w-full flex items-center justify-center gap-3 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-lg py-2.5 transition-colors text-sm text-slate-300 font-medium"
+                className="w-full flex items-center justify-center gap-3 bg-white hover:bg-gray-50 border border-gray-200 rounded-lg py-2.5 transition-colors text-sm text-gray-700 font-medium"
               >
                 <svg className="w-4 h-4" viewBox="0 0 24 24">
                   <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />

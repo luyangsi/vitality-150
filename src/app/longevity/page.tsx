@@ -21,11 +21,11 @@ import { formatDate, todayStr } from '@/lib/utils';
 import type { LongevityPillar } from '@/types/longevity';
 
 const TOOLTIP_STYLE = {
-  backgroundColor: '#1e293b',
-  border: '1px solid #334155',
+  backgroundColor: '#FFFFFF',
+  border: '1px solid #E5E7EB',
   borderRadius: '8px',
   fontSize: '12px',
-  color: '#e2e8f0',
+  color: '#1F2937',
 };
 
 const PILLAR_LABELS: Record<LongevityPillar, string> = {
@@ -136,8 +136,8 @@ export default function LongevityPage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-slate-100">Longevity Hub</h1>
-          <p className="text-slate-400 text-sm mt-1">Science-backed metrics for a 150-year life</p>
+          <h1 className="text-2xl font-bold text-gray-900">Longevity Hub</h1>
+          <p className="text-gray-500 text-sm mt-1">Science-backed metrics for a 150-year life</p>
         </div>
         <div className="flex gap-2">
           <Button variant="secondary" size="sm" onClick={() => setShowProfileModal(true)}>Profile</Button>
@@ -150,9 +150,9 @@ export default function LongevityPage() {
       {/* Score overview */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <Card glow className="flex flex-col items-center py-6">
-          <p className="text-xs text-slate-400 uppercase tracking-wider mb-4">Longevity Score</p>
+          <p className="text-xs text-gray-500 uppercase tracking-wider mb-4">Longevity Score</p>
           <ProgressRing value={score.overall} size={160} strokeWidth={10} label={String(score.overall)} sublabel="/ 100" />
-          <p className="text-xs text-slate-400 mt-3">Age: {age} · {profile.gender}</p>
+          <p className="text-xs text-gray-500 mt-3">Age: {age} · {profile.gender}</p>
         </Card>
 
         <div className="lg:col-span-2">
@@ -160,9 +160,9 @@ export default function LongevityPage() {
             <CardHeader><CardTitle>Pillar Breakdown</CardTitle></CardHeader>
             <ResponsiveContainer width="100%" height={220}>
               <RadarChart data={radarData} margin={{ top: 10, right: 30, bottom: 10, left: 30 }}>
-                <PolarGrid stroke="#1e293b" />
-                <PolarAngleAxis dataKey="pillar" tick={{ fill: '#64748b', fontSize: 10 }} />
-                <Radar name="Score" dataKey="score" stroke="#00d4aa" fill="#00d4aa" fillOpacity={0.15} strokeWidth={2} />
+                <PolarGrid stroke="#E5E7EB" />
+                <PolarAngleAxis dataKey="pillar" tick={{ fill: '#9CA3AF', fontSize: 10 }} />
+                <Radar name="Score" dataKey="score" stroke="#22C55E" fill="#22C55E" fillOpacity={0.15} strokeWidth={2} />
               </RadarChart>
             </ResponsiveContainer>
           </Card>
@@ -173,19 +173,19 @@ export default function LongevityPage() {
       <Card>
         <CardHeader>
           <CardTitle><Activity className="w-4 h-4 inline mr-1 text-cyan-400" />Zone 2 Cardio — 12 Week Trend</CardTitle>
-          <span className="text-xs text-slate-500">Target: {profile.zone2WeeklyTargetMinutes} min/week</span>
+          <span className="text-xs text-gray-500">Target: {profile.zone2WeeklyTargetMinutes} min/week</span>
         </CardHeader>
         <ResponsiveContainer width="100%" height={220}>
           <BarChart data={zone2Data} margin={{ top: 5, right: 10, left: -20, bottom: 5 }}>
-            <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
-            <XAxis dataKey="week" tick={{ fill: '#64748b', fontSize: 11 }} />
-            <YAxis tick={{ fill: '#64748b', fontSize: 11 }} />
+            <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" />
+            <XAxis dataKey="week" tick={{ fill: '#9CA3AF', fontSize: 11 }} />
+            <YAxis tick={{ fill: '#9CA3AF', fontSize: 11 }} />
             <Tooltip contentStyle={TOOLTIP_STYLE} />
             <ReferenceLine y={profile.zone2WeeklyTargetMinutes} stroke="#22d3ee" strokeDasharray="4 4" label={{ value: 'Target', fill: '#22d3ee', fontSize: 10 }} />
             <Bar dataKey="minutes" fill="#22d3ee" fillOpacity={0.8} radius={[3,3,0,0]} maxBarSize={40} />
           </BarChart>
         </ResponsiveContainer>
-        <p className="text-xs text-slate-500 mt-2">Zone 2 = 60-70% max HR ({Math.round((220 - age) * 0.6)}–{Math.round((220 - age) * 0.7)} bpm est.) · Maffetone ceiling: {180 - age} bpm</p>
+        <p className="text-xs text-gray-500 mt-2">Zone 2 = 60-70% max HR ({Math.round((220 - age) * 0.6)}–{Math.round((220 - age) * 0.7)} bpm est.) · Maffetone ceiling: {180 - age} bpm</p>
       </Card>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -197,15 +197,15 @@ export default function LongevityPage() {
           {hrvData.length > 0 ? (
             <ResponsiveContainer width="100%" height={200}>
               <AreaChart data={hrvData} margin={{ top: 5, right: 10, left: -20, bottom: 5 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
-                <XAxis dataKey="date" tick={{ fill: '#64748b', fontSize: 10 }} />
-                <YAxis tick={{ fill: '#64748b', fontSize: 10 }} />
+                <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" />
+                <XAxis dataKey="date" tick={{ fill: '#9CA3AF', fontSize: 10 }} />
+                <YAxis tick={{ fill: '#9CA3AF', fontSize: 10 }} />
                 <Tooltip contentStyle={TOOLTIP_STYLE} />
                 <Area type="monotone" dataKey="hrv" stroke="#c084fc" fill="#c084fc" fillOpacity={0.1} strokeWidth={2} name="HRV (ms)" dot={{ r: 3, fill: '#c084fc' }} />
               </AreaChart>
             </ResponsiveContainer>
           ) : (
-            <div className="h-48 flex items-center justify-center text-slate-500 text-sm">
+            <div className="h-48 flex items-center justify-center text-gray-400 text-sm">
               Log HRV daily to see your trend
             </div>
           )}
@@ -222,21 +222,21 @@ export default function LongevityPage() {
           {vo2Data.length > 0 ? (
             <ResponsiveContainer width="100%" height={200}>
               <LineChart data={vo2Data} margin={{ top: 5, right: 10, left: -20, bottom: 5 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
-                <XAxis dataKey="date" tick={{ fill: '#64748b', fontSize: 10 }} />
-                <YAxis tick={{ fill: '#64748b', fontSize: 10 }} domain={['auto', 'auto']} />
+                <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" />
+                <XAxis dataKey="date" tick={{ fill: '#9CA3AF', fontSize: 10 }} />
+                <YAxis tick={{ fill: '#9CA3AF', fontSize: 10 }} domain={['auto', 'auto']} />
                 <Tooltip contentStyle={TOOLTIP_STYLE} />
                 <Line type="monotone" dataKey="VO2 Max" stroke="#60a5fa" strokeWidth={2} dot={{ r: 4, fill: '#60a5fa' }} />
               </LineChart>
             </ResponsiveContainer>
           ) : (
             <div className="h-48 flex items-center justify-center flex-col gap-3">
-              <p className="text-slate-500 text-sm">No VO2 max entries yet</p>
+              <p className="text-gray-500 text-sm">No VO2 max entries yet</p>
               <Button size="sm" onClick={() => setShowVO2Modal(true)}>Log VO2 Max</Button>
             </div>
           )}
           {state.vo2MaxHistory.at(-1) && (
-            <p className="text-xs text-slate-500 mt-2">Latest: {state.vo2MaxHistory.at(-1)?.estimatedVO2Max} ml/kg/min</p>
+            <p className="text-xs text-gray-500 mt-2">Latest: {state.vo2MaxHistory.at(-1)?.estimatedVO2Max} ml/kg/min</p>
           )}
         </Card>
       </div>
@@ -260,23 +260,23 @@ export default function LongevityPage() {
             const pct = item.value ? Math.min(100, (item.value / item.target) * 100) : 0;
             const color = pct >= 100 ? '#00d4aa' : pct >= 75 ? '#fbbf24' : '#f43f5e';
             return (
-              <div key={item.label} className="bg-slate-900 rounded-lg p-3">
-                <p className="text-xs text-slate-400 mb-2">{item.label}</p>
+              <div key={item.label} className="bg-gray-50 rounded-lg p-3">
+                <p className="text-xs text-gray-500 mb-2">{item.label}</p>
                 <div className="flex items-baseline gap-1">
                   <span className="font-mono text-lg font-bold" style={{ color }}>
                     {item.value ?? '–'}
                   </span>
-                  <span className="text-xs text-slate-500">{item.unit}</span>
+                  <span className="text-xs text-gray-500">{item.unit}</span>
                 </div>
-                <p className="text-xs text-slate-600 mt-0.5">Target: {item.target} {item.unit}</p>
-                <div className="mt-2 h-1 bg-slate-700 rounded-full overflow-hidden">
+                <p className="text-xs text-gray-400 mt-0.5">Target: {item.target} {item.unit}</p>
+                <div className="mt-2 h-1 bg-gray-200 rounded-full overflow-hidden">
                   <div className="h-full rounded-full" style={{ width: `${pct}%`, backgroundColor: color }} />
                 </div>
               </div>
             );
           })}
         </div>
-        <p className="text-xs text-slate-600 mt-3">Benchmarks for age {Math.floor(age / 10) * 10}–{Math.floor(age / 10) * 10 + 9} {profile.gender}s. Source: Peter Attia longevity protocols.</p>
+        <p className="text-xs text-gray-400 mt-3">Benchmarks for age {Math.floor(age / 10) * 10}–{Math.floor(age / 10) * 10 + 9} {profile.gender}s. Source: Peter Attia longevity protocols.</p>
       </Card>
 
       {/* Sleep */}
@@ -294,16 +294,16 @@ export default function LongevityPage() {
               }))}
               margin={{ top: 5, right: 10, left: -20, bottom: 5 }}
             >
-              <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
-              <XAxis dataKey="date" tick={{ fill: '#64748b', fontSize: 10 }} />
-              <YAxis tick={{ fill: '#64748b', fontSize: 10 }} />
+              <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" />
+              <XAxis dataKey="date" tick={{ fill: '#9CA3AF', fontSize: 10 }} />
+              <YAxis tick={{ fill: '#9CA3AF', fontSize: 10 }} />
               <Tooltip contentStyle={TOOLTIP_STYLE} />
               <Area type="monotone" dataKey="sleep" stroke="#818cf8" fill="#818cf8" fillOpacity={0.1} strokeWidth={2} name="Hours" />
               <ReferenceLine y={8} stroke="#4ade80" strokeDasharray="3 3" />
             </AreaChart>
           </ResponsiveContainer>
         ) : (
-          <div className="h-32 flex items-center justify-center text-slate-500 text-sm">
+          <div className="h-32 flex items-center justify-center text-gray-400 text-sm">
             Log sleep in daily metrics to see trend
           </div>
         )}
@@ -358,7 +358,7 @@ export default function LongevityPage() {
             </Select>
           </div>
           <Input label="Notes" value={metricForm.notes} onChange={e => setMetricForm(f => ({ ...f, notes: e.target.value }))} />
-          <div className="flex justify-end gap-2 pt-2 border-t border-slate-800">
+          <div className="flex justify-end gap-2 pt-2 border-t border-gray-100">
             <Button variant="secondary" onClick={() => setShowMetricModal(false)}>Cancel</Button>
             <Button onClick={handleSaveMetrics}>Save Metrics</Button>
           </div>
@@ -386,7 +386,7 @@ export default function LongevityPage() {
             <Input label="Zone 2 Target (min/week)" type="number" value={profileForm.zone2WeeklyTargetMinutes}
               onChange={e => setProfileForm(f => ({ ...f, zone2WeeklyTargetMinutes: e.target.value }))} />
           </div>
-          <div className="flex justify-end gap-2 pt-2 border-t border-slate-800">
+          <div className="flex justify-end gap-2 pt-2 border-t border-gray-100">
             <Button variant="secondary" onClick={() => setShowProfileModal(false)}>Cancel</Button>
             <Button onClick={handleSaveProfile}>Save Profile</Button>
           </div>
@@ -406,7 +406,7 @@ export default function LongevityPage() {
             <option value="resting_hr_estimate">Resting HR Estimate</option>
           </Select>
           <Input label="Notes" value={vo2Form.notes} onChange={e => setVo2Form(f => ({ ...f, notes: e.target.value }))} />
-          <div className="flex justify-end gap-2 pt-2 border-t border-slate-800">
+          <div className="flex justify-end gap-2 pt-2 border-t border-gray-100">
             <Button variant="secondary" onClick={() => setShowVO2Modal(false)}>Cancel</Button>
             <Button onClick={() => {
               if (!vo2Form.estimatedVO2Max) return;
@@ -429,7 +429,7 @@ export default function LongevityPage() {
             <Input label="Push-Up Count" type="number" value={benchForm.pushUpCount} onChange={e => setBenchForm(f => ({ ...f, pushUpCount: e.target.value }))} />
           </div>
           <Input label="Pull-Up Count" type="number" value={benchForm.pullUpCount} onChange={e => setBenchForm(f => ({ ...f, pullUpCount: e.target.value }))} />
-          <div className="flex justify-end gap-2 pt-2 border-t border-slate-800">
+          <div className="flex justify-end gap-2 pt-2 border-t border-gray-100">
             <Button variant="secondary" onClick={() => setShowBenchmarkModal(false)}>Cancel</Button>
             <Button onClick={() => {
               addStrengthBenchmark({

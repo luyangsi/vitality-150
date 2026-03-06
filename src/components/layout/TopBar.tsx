@@ -10,15 +10,15 @@ export function TopBar() {
   const { currentStreak } = useStreaks(sessions);
 
   return (
-    <header className="h-16 border-b border-slate-800 px-6 flex items-center justify-between bg-slate-950/80 backdrop-blur-sm sticky top-0 z-30">
-      <p className="text-slate-400 text-sm">
+    <header className="h-16 border-b border-gray-100 px-6 flex items-center justify-between bg-white sticky top-0 z-30">
+      <p className="text-gray-500 text-sm">
         {format(new Date(), 'EEEE, MMMM d, yyyy')}
       </p>
       {currentStreak > 0 && (
-        <div className="flex items-center gap-2 bg-amber-500/10 border border-amber-500/20 rounded-lg px-3 py-1.5">
-          <Flame className="w-4 h-4 text-amber-400" />
-          <span className="text-amber-400 font-mono font-semibold text-sm">{currentStreak}</span>
-          <span className="text-slate-400 text-xs">day streak</span>
+        <div className="flex items-center gap-1.5 bg-amber-50 border border-amber-200 rounded-lg px-3 py-1.5">
+          <Flame className="w-3.5 h-3.5 text-amber-500" />
+          <span className="text-amber-700 font-semibold text-sm">{currentStreak}</span>
+          <span className="text-amber-500 text-xs">day streak</span>
         </div>
       )}
     </header>

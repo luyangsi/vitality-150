@@ -89,8 +89,8 @@ export function TemplateEditor({ open, onClose, onSave, initial }: Props) {
                 onClick={() => toggleMuscle(mg)}
                 className={`px-2.5 py-1 rounded-md text-xs font-medium border transition-colors ${
                   muscleGroups.includes(mg)
-                    ? 'bg-vitality-500/15 border-vitality-500/40 text-vitality-400'
-                    : 'bg-slate-700 border-slate-600 text-slate-400 hover:border-slate-500'
+                    ? 'bg-vitality-50 border-vitality-300 text-vitality-700'
+                    : 'bg-gray-50 border-gray-200 text-gray-600 hover:border-gray-300'
                 }`}
               >
                 {mg.replace('_', ' ')}
@@ -104,27 +104,27 @@ export function TemplateEditor({ open, onClose, onSave, initial }: Props) {
           <p className="label mb-2">Exercises ({exercises.length})</p>
           <div className="space-y-2 max-h-64 overflow-y-auto">
             {exercises.map((ex, idx) => (
-              <div key={idx} className="bg-slate-900 border border-slate-700 rounded-lg p-3 flex items-center gap-3">
+              <div key={idx} className="bg-gray-50 border border-gray-200 rounded-lg p-3 flex items-center gap-3">
                 <div className="flex-1">
-                  <p className="text-sm text-slate-200">{ex.exerciseName}</p>
+                  <p className="text-sm text-gray-800">{ex.exerciseName}</p>
                   <div className="flex gap-2 mt-1">
                     <input
                       type="number"
                       value={ex.targetSets}
                       onChange={e => updateExercise(idx, { targetSets: Number(e.target.value) })}
-                      className="w-14 bg-slate-800 border border-slate-700 rounded px-2 py-0.5 text-xs text-slate-300"
+                      className="w-14 bg-white border border-gray-200 rounded px-2 py-0.5 text-xs text-gray-700"
                       placeholder="Sets"
                     />
                     <input
                       type="text"
                       value={ex.targetReps}
                       onChange={e => updateExercise(idx, { targetReps: e.target.value })}
-                      className="w-20 bg-slate-800 border border-slate-700 rounded px-2 py-0.5 text-xs text-slate-300"
+                      className="w-20 bg-white border border-gray-200 rounded px-2 py-0.5 text-xs text-gray-700"
                       placeholder="Reps"
                     />
                   </div>
                 </div>
-                <button onClick={() => removeExercise(idx)} className="text-rose-400 hover:text-rose-300">
+                <button onClick={() => removeExercise(idx)} className="text-red-400 hover:text-red-600">
                   <Trash2 className="w-4 h-4" />
                 </button>
               </div>
@@ -140,15 +140,15 @@ export function TemplateEditor({ open, onClose, onSave, initial }: Props) {
               onFocus={() => setShowExSearch(true)}
             />
             {showExSearch && searchResults.length > 0 && (
-              <div className="absolute top-full left-0 right-0 bg-slate-900 border border-slate-700 rounded-lg mt-1 z-10 shadow-xl">
+              <div className="absolute top-full left-0 right-0 bg-white border border-gray-200 rounded-lg mt-1 z-10 shadow-card-md">
                 {searchResults.map(ex => (
                   <button
                     key={ex.id}
                     onClick={() => addExercise({ id: ex.id, name: ex.name })}
-                    className="w-full text-left px-3 py-2 text-sm text-slate-300 hover:bg-slate-800 hover:text-slate-100 first:rounded-t-lg last:rounded-b-lg"
+                    className="w-full text-left px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-gray-900 first:rounded-t-lg last:rounded-b-lg"
                   >
                     {ex.name}
-                    <span className="text-xs text-slate-500 ml-2">{ex.category}</span>
+                    <span className="text-xs text-gray-400 ml-2">{ex.category}</span>
                   </button>
                 ))}
               </div>
@@ -156,7 +156,7 @@ export function TemplateEditor({ open, onClose, onSave, initial }: Props) {
           </div>
         </div>
 
-        <div className="flex justify-end gap-2 pt-2 border-t border-slate-800">
+        <div className="flex justify-end gap-2 pt-2 border-t border-gray-100">
           <Button variant="secondary" onClick={onClose}>Cancel</Button>
           <Button onClick={handleSave} disabled={!name.trim()}>Save Template</Button>
         </div>
